@@ -10,8 +10,8 @@ webfont-formats = ['ttf', 'woff2']
 inherits = "ss20"
 
 [buildPlans.curlio.variants.design]
+capital-g = "toothless-rounded-serifless-hooked"
 asterisk = "penta-low"
-paren = "large-contour"
 brace = "straight"
 at = "fourfold-solid-inner"
 dollar = "open"
