@@ -1,0 +1,46 @@
+[buildPlans.curlio]
+family = "Curlio"
+spacing = "normal"
+serifs = "sans"
+no-cv-ss = true
+
+webfont-formats = ['ttf', 'woff2']
+
+[buildPlans.curlio.variants]
+inherits = "ss20"
+
+[buildPlans.curlio.variants.design]
+asterisk = "penta-low"
+paren = "large-contour"
+brace = "straight"
+at = "fourfold-solid-inner"
+dollar = "open"
+cent = "open"
+percent = "rings-continuous-slash"
+
+[buildPlans.curlio.variants.upright]
+
+[buildPlans.curlio.variants.italic]
+a = "double-storey-serifless"
+e = "flat-crossbar"
+f = "serifless"
+i = "serifed"
+k = "curly-serifless"
+l = "serifed"
+u = "toothed"
+y = "curly"
+long-s = "bent-hook"
+eszet = "sulzbacher"
+cyrl-ef = "serifless"
+cyrl-yeri = "corner"
+cyrl-yery = "corner"
+
+[buildPlans.curlio.ligations]
+inherits = "default-calt"
+disables = []
+enables = []
+
+[buildPlans.curlio.widths.normal]
+shape = 600
+menu = 5
+css = "normal"

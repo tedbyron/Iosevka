@@ -35,7 +35,6 @@ test/
 preview/
 .build/
 build/
-dist/
 ref/
 pages/
 releases/
@@ -48,7 +47,6 @@ font-src/otl/**/*.js
 font-src/glyphs/**/*.js
 
 private.toml
-private-build-plans.toml
 private.mk
 params/private-parameters.toml
 
