@@ -1,0 +1,315 @@
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 100;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-thin.ttf') format('truetype'), url('woff2/blocked-thin.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 100;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-thinoblique.ttf') format('truetype'), url('woff2/blocked-thinoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 100;
+	font-stretch: normal;
+	src: url('ttf/blocked-thinoblique.ttf') format('truetype'), url('woff2/blocked-thinoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 100;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-thinitalic.ttf') format('truetype'), url('woff2/blocked-thinitalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 200;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-extralight.ttf') format('truetype'), url('woff2/blocked-extralight.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 200;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-extralightoblique.ttf') format('truetype'), url('woff2/blocked-extralightoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 200;
+	font-stretch: normal;
+	src: url('ttf/blocked-extralightoblique.ttf') format('truetype'), url('woff2/blocked-extralightoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 200;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-extralightitalic.ttf') format('truetype'), url('woff2/blocked-extralightitalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-light.ttf') format('truetype'), url('woff2/blocked-light.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-lightoblique.ttf') format('truetype'), url('woff2/blocked-lightoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: normal;
+	src: url('ttf/blocked-lightoblique.ttf') format('truetype'), url('woff2/blocked-lightoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 300;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-lightitalic.ttf') format('truetype'), url('woff2/blocked-lightitalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-regular.ttf') format('truetype'), url('woff2/blocked-regular.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-oblique.ttf') format('truetype'), url('woff2/blocked-oblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	src: url('ttf/blocked-oblique.ttf') format('truetype'), url('woff2/blocked-oblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 400;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-italic.ttf') format('truetype'), url('woff2/blocked-italic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-medium.ttf') format('truetype'), url('woff2/blocked-medium.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-mediumoblique.ttf') format('truetype'), url('woff2/blocked-mediumoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: normal;
+	src: url('ttf/blocked-mediumoblique.ttf') format('truetype'), url('woff2/blocked-mediumoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 500;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-mediumitalic.ttf') format('truetype'), url('woff2/blocked-mediumitalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 600;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-semibold.ttf') format('truetype'), url('woff2/blocked-semibold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 600;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-semiboldoblique.ttf') format('truetype'), url('woff2/blocked-semiboldoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 600;
+	font-stretch: normal;
+	src: url('ttf/blocked-semiboldoblique.ttf') format('truetype'), url('woff2/blocked-semiboldoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 600;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-semibolditalic.ttf') format('truetype'), url('woff2/blocked-semibolditalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-bold.ttf') format('truetype'), url('woff2/blocked-bold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-boldoblique.ttf') format('truetype'), url('woff2/blocked-boldoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: normal;
+	src: url('ttf/blocked-boldoblique.ttf') format('truetype'), url('woff2/blocked-boldoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 700;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-bolditalic.ttf') format('truetype'), url('woff2/blocked-bolditalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 800;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-extrabold.ttf') format('truetype'), url('woff2/blocked-extrabold.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 800;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-extraboldoblique.ttf') format('truetype'), url('woff2/blocked-extraboldoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 800;
+	font-stretch: normal;
+	src: url('ttf/blocked-extraboldoblique.ttf') format('truetype'), url('woff2/blocked-extraboldoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 800;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-extrabolditalic.ttf') format('truetype'), url('woff2/blocked-extrabolditalic.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 900;
+	font-stretch: normal;
+	font-style: normal;
+	src: url('ttf/blocked-heavy.ttf') format('truetype'), url('woff2/blocked-heavy.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 900;
+	font-stretch: normal;
+	font-style: oblique;
+	src: url('ttf/blocked-heavyoblique.ttf') format('truetype'), url('woff2/blocked-heavyoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web Oblique';
+	font-display: swap;
+	font-weight: 900;
+	font-stretch: normal;
+	src: url('ttf/blocked-heavyoblique.ttf') format('truetype'), url('woff2/blocked-heavyoblique.woff2') format('woff2');
+}
+
+@font-face {
+	font-family: 'Blocked Web';
+	font-display: swap;
+	font-weight: 900;
+	font-stretch: normal;
+	font-style: italic;
+	src: url('ttf/blocked-heavyitalic.ttf') format('truetype'), url('woff2/blocked-heavyitalic.woff2') format('woff2');
+}
