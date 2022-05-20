@@ -54,3 +54,6 @@ params/private-parameters.toml
 
 # Ignore tmp directory
 tmp
+
+!dist/curlio
+!dist/blocked
