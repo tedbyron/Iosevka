@@ -19,7 +19,7 @@ cent = "open"
 percent = "rings-continuous-slash"
 zero = "long-dotted"
 four = "closed"
-seven = "bend-crossbar"
+seven = "bend-serifless"
 eight = "two-circles"
 
 [buildPlans.curlio.variants.upright]
