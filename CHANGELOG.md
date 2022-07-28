@@ -1,5 +1,66 @@
 ## Modifications since version 2.x
 
+### 15.6.1
+
+ * Add characters:
+  - BLANK SYMBOL (`U+2422`);
+  - SYMBOL FOR DELETE FORM TWO (`U+2425`);
+  - SYMBOL FOR SUBSTITUTE FORM TWO (`U+2426`);
+
+
+### 15.6.0
+
+ * Fix assignment of `r` and `w` for SS09 (#1378, #1379).
+ * Add variant selectors for Cyrillic Zhe (#1380).
+ * Harmonize dimensions of Cyrillic Yer, Yeri and Yery (#1382).
+
+
+### 15.5.2
+
+* Add characters:
+  - BOWTIE WITH LEFT HALF BLACK (`U+29D1`) ... BLACK HOURGLASS (`U+29D7`) (#1370);
+
+
+### 15.5.1
+
+* Add characters:
+  - QUADRUPLE PRIME (`U+2057`);
+  - CARET INSERTION POINT (`U+2041`);
+  - DOTTED CROSS (`U+205C`);
+* Unhinted webfonts are added into releases.
+
+
+### 15.5.0
+
+* Add characters
+  - LATIN SMALL LETTER B WITH MIDDLE TILDE (`U+1D6C`) ... LATIN SMALL LETTER Z WITH MIDDLE TILDE (`U+1D76`);
+  - LATIN SMALL CAPITAL LETTER U WITH STROKE (`U+1D7E`);
+
+
+### 15.4.2
+
+* Fix ranks of `cv72` (variants applying to `1`) (#1358).
+
+
+### 15.4.1
+
+* Fix VXDD application on U+1D1E (#1357).
+
+
+### 15.4.0
+
+* Add characters:
+  - LATIN SMALL LETTER SIDEWAYS O (`U+1D11`);
+  - LATIN SMALL LETTER SIDEWAYS OPEN O (`U+1D12`);
+  - LATIN SMALL LETTER SIDEWAYS O WITH STROKE (`U+1D13`);
+  - LATIN SMALL LETTER SIDEWAYS U (`U+1D1D`);
+  - LATIN SMALL LETTER SIDEWAYS DIAERESIZED U (`U+1D1E`);
+  - LATIN SMALL LETTER SIDEWAYS TURNED M (`U+1D1F`);
+  - MODIFIER LETTER SMALL SIDEWAYS U (`U+1D59`);
+* Make user build plans' variants inheritable (#1345).
+* Add top-cut variants of `1` (#1354).
+
+
 ### 15.3.1
 
 * Fix display of Kleisli arrows under Kitty (#1350).
