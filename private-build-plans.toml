@@ -4,7 +4,7 @@ spacing = "term"
 serifs = "sans"
 no-cv-ss = true
 
-webfont-formats = ['ttf', 'woff2']
+webfont-formats = ['ttf']
 
 [buildPlans.curlio.variants]
 inherits = "ss20"
@@ -57,7 +57,7 @@ spacing = "term"
 serifs = "sans"
 no-cv-ss = true
 
-webfont-formats = ['ttf', 'woff2']
+webfont-formats = ['ttf']
 
 [buildPlans.blocked.variants]
 inherits = "ss02"

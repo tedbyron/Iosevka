@@ -1,0 +1,33 @@
+#!/usr/bin/env zsh
+
+# brew install font-forge
+
+mkdir -p src/glyphs
+cd glyphs
+
+BASE_URL="https://github.com/ryanoasis/nerd-fonts/raw/master/src/glyphs/"
+
+xargs -n1 -P20 -I{} curl --create-dirs -sLo {} "$BASE_URL"{} <<EOF
+"original-source.otf"
+"devicons.ttf"
+"powerline-symbols/PowerlineSymbols.otf"
+"PowerlineExtraSymbols.otf"
+"Pomicons.otf"
+"font-awesome/FontAwesome.otf"
+"font-awesome-extension.ttf"
+"Unicode_IEC_symbol_font.otf"
+"materialdesignicons-webfont.ttf"
+"weather-icons/weathericons-regular-webfont.ttf"
+"font-logos.ttf"
+"octicons.ttf"
+"codicons/codicon.ttf"
+EOF
+
+cd ..
+
+# npm install
+npm run build -- contents::curlio
+
+for file in ./dist/curlio/ttf/*(.); do
+  python3 font-patcher -s -l -c --careful -out dist/patched $file
+done
