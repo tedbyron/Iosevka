@@ -40,45 +40,44 @@ cyrl-yeri = "corner"
 cyrl-yery = "corner"
 
 [buildPlans.curlio.ligations]
-inherits = "default-calt"
+inherits = "javascript"
 disables = []
 enables = []
 
-[buildPlans.curlio.widths.normal]
-shape = 600
-menu = 5
-css = "normal"
+# [buildPlans.curlio.widths.normal]
+# shape = 600
+# menu = 5
+# css = "normal"
 
 ###################################################################################################
 
-[buildPlans.blocked]
-family = "Blocked"
+[buildPlans.blocky]
+family = "Blocky"
 spacing = "term"
 serifs = "sans"
 no-cv-ss = true
 
 webfont-formats = ['ttf']
 
-[buildPlans.blocked.variants]
+[buildPlans.blocky.variants]
 inherits = "ss02"
 
-[buildPlans.blocked.variants.design]
+[buildPlans.blocky.variants.design]
 zero = "long-dotted"
-two = "curly-neck"
-seven = "bend-crossbar"
+seven = "straight-serifed"
 dollar = "open"
 cent = "open"
 
-[buildPlans.blocked.variants.upright]
+[buildPlans.blocky.variants.upright]
 
-[buildPlans.blocked.variants.italic]
+[buildPlans.blocky.variants.italic]
 
-[buildPlans.blocked.ligations]
-inherits = "default-calt"
+[buildPlans.blocky.ligations]
+inherits = "javascript"
 disables = []
 enables = []
 
-[buildPlans.blocked.widths.normal]
-shape = 600
-menu = 5
-css = "normal"
+# [buildPlans.blocky.widths.normal]
+# shape = 600
+# menu = 5
+# css = "normal"
