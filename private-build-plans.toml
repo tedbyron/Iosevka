@@ -44,10 +44,10 @@ inherits = "javascript"
 disables = []
 enables = []
 
-# [buildPlans.curlio.widths.normal]
-# shape = 600
-# menu = 5
-# css = "normal"
+[buildPlans.curlio.widths.normal]
+shape = 600
+menu = 5
+css = "normal"
 
 ###################################################################################################
 
@@ -77,7 +77,7 @@ inherits = "javascript"
 disables = []
 enables = []
 
-# [buildPlans.blocky.widths.normal]
-# shape = 600
-# menu = 5
-# css = "normal"
+[buildPlans.blocky.widths.normal]
+shape = 600
+menu = 5
+css = "normal"
