@@ -9,7 +9,7 @@ glyph-block Symbol-Punctuation-Ampersand : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
 	glyph-block-import Letter-Latin-Ezh : RevEzhShape
-	glyph-block-import Letter-Shared-Shapes : DToothlessRise
+	glyph-block-import Letter-Shared-Shapes : DToothlessRise RightwardTailedBar SerifedArcEnd_LtrLhs
 
 	define SwAmpersand : AdviceStroke2 2.5 3 CAP
 	define fineAmp : AdviceStroke 3.5
@@ -81,7 +81,7 @@ glyph-block Symbol-Punctuation-Ampersand : begin
 			dispiro
 				g4.left.mid xClosedAmpersandBottom O [widths.rhs.heading SwAmpersand ClosedBottomSlope]
 				archv
-				g4   (SB + O) ArchDepthB
+				g4   (SB + OX) [YSmoothMidL (0.66 * yUpperLoopRight + HalfStroke) O ArchDepthA ArchDepthB]
 				alsoThru 0.5 0.5 [widths.center SwAmpersand]
 				g4   xUpperLoopRight yUpperLoopRight [widths.lhs SwAmpersand]
 				arcvh
@@ -105,7 +105,7 @@ glyph-block Symbol-Punctuation-Ampersand : begin
 			dispiro
 				g4.left.mid xClosedAmpersandBottom O [widths.rhs.heading SwAmpersand ClosedBottomSlope]
 				archv
-				g4   (SB + O) ArchDepthB
+				g4   (SB + OX) [YSmoothMidL (0.66 * yUpperLoopRight + HalfStroke) O ArchDepthA ArchDepthB]
 				alsoThru 0.5 0.5 [widths.center SwAmpersand]
 				g4   xUpperLoopRight yUpperLoopRight [widths.lhs SwAmpersand]
 			Rect (CAP * 2) yUpperLoopRight 0 Width
@@ -167,7 +167,7 @@ glyph-block Symbol-Punctuation-Ampersand : begin
 			spiro-outline
 				g4.left.start (xLowerOpenBottom + CorrectionOMidX * SwAmpersand) O
 				archv
-				g4   (SB + O) ArchDepthB
+				g4   (SB + OX) [YSmoothMidL (0.66 * yUpperLoopRight + HalfStroke) O ArchDepthA ArchDepthB]
 				alsoThru 0.5 0.5 [widths.center SwAmpersand]
 				g4   xUpperLoopRight yUpperLoopRight
 				arcvh
@@ -186,69 +186,64 @@ glyph-block Symbol-Punctuation-Ampersand : begin
 	define xEtCenterBarRight : mix xEtRight Width 0.5
 	define yEtRightBarTop : mix (yEtMiddle + SwAmpersand / 2) (CAP - SHook) 0.375
 
+	define FORM-TOOTHLESS-CORNER  1
+	define FORM-TOOTHLESS-ROUNDED 2
+	define FORM-TOOTHED           3
+
+	define [EtUpperHalf] : dispiro
+		g4 (xEtRight + O) (CAP - SHook) [widths.lhs]
+		hookstart (CAP - O)
+		g4 xEtLeft (CAP - adaEt)
+		arcvh
+		flat Middle (yEtMiddle - (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Rightward]
+		curl xEtCenterBarRight (yEtMiddle - (fineEt - SwAmpersand / 2)) [heading Rightward]
+
+	define [EtLowerHalf form] : dispiro
+		flat xEtCenterBarRight (yEtMiddle + (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Leftward]
+		curl Middle (yEtMiddle + (fineEt - SwAmpersand / 2)) [heading Leftward]
+		archv
+		g4 (xEtLeft + O * 2) adbEt [widths.lhs]
+		match form
+			[Just FORM-TOOTHLESS-CORNER] : list
+				arcvh
+				g4   (xEtBottom + CorrectionOMidS) O
+				g4   xEtRight DToothlessRise
+
+			[Just FORM-TOOTHLESS-ROUNDED] : list
+				arcvh
+				g4   (xEtBottom + CorrectionOMidS) O
+				archv
+				flat xEtRight adaEt
+				curl xEtRight yEtRightBarTop [heading Upward]
+
+			[Just FORM-TOOTHED] : begin
+				SerifedArcEnd_LtrLhs xEtRight xEtBottom 0 Stroke adaEt Stroke
+			_ : list
+
+
 	create-glyph 'ampersand.etToothlessCorner' : union
-		dispiro
-			g4 (xEtRight + O) (CAP - SHook) [widths.lhs]
-			hookstart (CAP - O)
-			g4 xEtLeft (CAP - adaEt)
-			arcvh
-			flat Middle (yEtMiddle - (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Rightward]
-			curl xEtCenterBarRight (yEtMiddle - (fineEt - SwAmpersand / 2)) [heading Rightward]
-		dispiro
-			flat xEtCenterBarRight (yEtMiddle + (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Leftward]
-			curl Middle (yEtMiddle + (fineEt - SwAmpersand / 2)) [heading Leftward]
-			archv
-			g4 (xEtLeft + O * 2) adbEt [widths.lhs]
-			arcvh
-			g4   (xEtBottom + CorrectionOMidS) O
-			g4   xEtRight DToothlessRise
-		VBarRight xEtRight DToothlessRise yEtRightBarTop
+		EtUpperHalf
+		EtLowerHalf FORM-TOOTHLESS-CORNER
+		VBar.r xEtRight DToothlessRise yEtRightBarTop
 
 	create-glyph 'ampersand.etToothlessRounded' : union
-		dispiro
-			g4 (xEtRight + O) (CAP - SHook) [widths.lhs]
-			hookstart (CAP - O)
-			g4 xEtLeft (CAP - adaEt)
-			arcvh
-			flat Middle (yEtMiddle - (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Rightward]
-			curl xEtCenterBarRight (yEtMiddle - (fineEt - SwAmpersand / 2)) [heading Rightward]
-		dispiro
-			flat xEtCenterBarRight (yEtMiddle + (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Leftward]
-			curl Middle (yEtMiddle + (fineEt - SwAmpersand / 2)) [heading Leftward]
-			archv
-			g4 (xEtLeft + O * 2) adbEt [widths.lhs]
-			arcvh
-			g4   (xEtBottom + CorrectionOMidS) O
-			archv
-			flat xEtRight adaEt
-			curl xEtRight yEtRightBarTop [heading Upward]
+		EtUpperHalf
+		EtLowerHalf FORM-TOOTHLESS-ROUNDED
 
-	local sbEtToothed : shoulderMidSlope ShoulderFine nothing (-1)
 	create-glyph 'ampersand.etToothed' : union
-		dispiro
-			g4 (xEtRight + O) (CAP - SHook) [widths.lhs]
-			hookstart (CAP - O)
-			g4 xEtLeft (CAP - adaEt)
-			arcvh
-			flat Middle (yEtMiddle - (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Rightward]
-			curl xEtCenterBarRight (yEtMiddle - (fineEt - SwAmpersand / 2)) [heading Rightward]
+		EtUpperHalf
+		EtLowerHalf FORM-TOOTHED
+		VBar.r xEtRight (adaEt + O) yEtRightBarTop
+		VBar.r xEtRight adaEt 0 [Math.max [AdviceStroke 5] (Stroke - ShoulderFine / 2)]
 
-		dispiro
-			flat xEtCenterBarRight (yEtMiddle + (fineEt - SwAmpersand / 2)) [widths.heading fineEt 0 Leftward]
-			curl Middle (yEtMiddle + (fineEt - SwAmpersand / 2)) [heading Leftward]
-			archv
-			g4 (xEtLeft + O * 2) adbEt [widths.lhs]
-			arcvh
-			g4.right.mid (xEtBottom + (CorrectionOMidX - sbEtToothed) * Stroke) O [widths.heading Stroke 0 {.y (1) .x (sbEtToothed)}]
-			archv
-			straight.up.end (xEtRight - (Stroke - ShoulderFine) * HVContrast) adaEt [widths.heading ShoulderFine 0 Upward]
-
-		VBarRight xEtRight (adaEt + O) yEtRightBarTop
-		VBarRight xEtRight adaEt 0 [Math.max [AdviceStroke 5] (Stroke - ShoulderFine / 2)]
+	create-glyph 'ampersand.etTailed' : union
+		EtUpperHalf
+		EtLowerHalf FORM-TOOTHED
+		RightwardTailedBar xEtRight 0 yEtRightBarTop
 
 	define yEtFlatTopEnd : Math.max (ArchDepthA + fineAmp) (CAP * 0.4)
 	define yEtFlatTopBarPos : (OverlayPos * CAP + Stroke * 0.625) / CAP
-	define sbFlatTop : shoulderMidSlope fineAmp nothing (1)
+	define skFlatTop : shoulderMidSkew fineAmp nothing
 
 	create-glyph 'ampersand.flatTop' : union
 		LowerOpenCrossbar yEtFlatTopEnd
@@ -257,7 +252,7 @@ glyph-block Symbol-Punctuation-Ampersand : begin
 			widths.lhs
 			g4.down.start (SB + OX) [RevEzhShape.yLoopLeft CAP 0 yEtFlatTopBarPos adaEt adbEt]
 			arcvh
-			g4.right.mid (xLowerOpenBottom + CorrectionOMidS) O [widths.heading Stroke 0 {.y (1) .x (sbFlatTop)}]
+			g4.right.mid (xLowerOpenBottom + CorrectionOMidS) O [widths.heading Stroke 0 {.y (1) .x (skFlatTop)}]
 			archv
 			flat (xLowerOpenRight - OX) adaEt [widths.lhs fineAmp]
 			curl (xLowerOpenRight - OX) yEtFlatTopEnd [heading Upward]

@@ -8,7 +8,8 @@ glyph-module
 glyph-block Letter-Latin-Lower-G : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
-	glyph-block-import Letter-Shared-Shapes : DToothlessRise DMBlend FlatHookDepth
+	glyph-block-import Letter-Shared-Shapes : OBarLeft OBarRight DToothlessRise DMBlend
+	glyph-block-import Letter-Shared-Shapes : FlatHookDepth PalatalHook VerticalHook
 
 	create-glyph 'g.doubleStorey' : glyph-proc
 		include : MarkSet.p
@@ -68,106 +69,94 @@ glyph-block Letter-Latin-Lower-G : begin
 
 		set-base-anchor 'overlay' Middle [mix (Descender + O) groundy 0.5]
 
-	define [SmallGSingleStoreyShapeHookT yTop sink offset sw] : sink
-		widths.rhs sw
-		[if (sink == spiro-outline) corner flat] (RightSB - offset) yTop [heading Downward]
-		curl (RightSB - offset) (Descender + SmallArchDepthA)
-		hookend (Descender + O + offset)
-		g4 (SB + offset) (Descender + SHook)
-		if (sink == spiro-outline) {[corner SB XH]} {}
+	define SingleStorey : namespace
+		export : define [RoundHookT sink df yTop offset sw] : sink
+			widths.rhs sw
+			[if (sink == spiro-outline) corner flat] (df.rightSB - offset) yTop [heading Downward]
+			curl (df.rightSB - offset) (Descender + SmallArchDepthA)
+			hookend (Descender + O + offset)
+			g4 (df.leftSB + offset) (Descender + SHook)
+			if (sink == spiro-outline) {[corner df.leftSB XH]} {}
 
-	create-glyph 'g.singleStoreySerifless' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarRightShape
-		include : SmallGSingleStoreyShapeHookT XH dispiro 0 Stroke
+		export : define [RoundHook df y0] : RoundHookT dispiro df y0 0 df.mvs
+		export : define [FlatHook df y0] : begin
+			local hd : FlatHookDepth df (9 / 8)
+			local xTerminal : Math.min (df.rightSB - hd.x - 0.1) : mix df.leftSB df.rightSB (1 / 5)
+			return : dispiro
+				widths.rhs df.mvs
+				flat df.rightSB y0 [heading Downward]
+				curl df.rightSB (Descender + hd.y)
+				arcvh.superness DesignParameters.tightHookSuperness
+				flat (df.rightSB - hd.x) Descender
+				curl xTerminal Descender [heading Leftward]
 
-	create-glyph 'g.singleStoreySerifed' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarRightShape
-		include : SmallGSingleStoreyShapeHookT XH dispiro 0 Stroke
-		include : tagged 'serifRT' : RightwardTopSerif RightSB XH SideJut
+		export : define [SeriflessBody df top] : glyph-proc
+			include : OBarRight.shape (top -- top) (left -- df.leftSB) (right -- df.rightSB) (stroke -- df.mvs)
 
-	create-glyph 'g.singleStoreyEarlessCorner' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftToothlessShape XH SB DToothlessRise DMBlend
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyShapeHookT (XH - DToothlessRise) dispiro 0 Stroke
+		export : define [SerifedBody df top] : glyph-proc
+			include : SeriflessBody df top
+			include : tagged 'serifRT' : HSerif.rt df.rightSB top SideJut
 
-	create-glyph 'g.singleStoreyEarlessCornerHTB' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftToothlessShape XH SB DToothlessRise DMBlend
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyShapeHookT XH dispiro 0 Stroke
+		export : define [EarlessCornerBody df top] : glyph-proc
+			include : OBarLeft.toothless
+				top -- top
+				left -- df.leftSB
+				right -- df.rightSB
+				rise -- DToothlessRise
+				mBlend -- DMBlend
+				sw -- df.mvs
+			include : FlipAround df.middle (top / 2)
 
-	create-glyph 'g.singleStoreyEarlessRounded' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftRoundedShape XH SB (SmallArchDepthB - O)
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyShapeHookT (XH - SmallArchDepthB) dispiro 0 Stroke
+		export : define [EarlessRoundedBody df top] : glyph-proc
+			include : OBarLeft.rounded
+				top -- top
+				left -- df.leftSB
+				right -- df.rightSB
+				yTerminal -- (SmallArchDepthB - O)
+				sw -- df.mvs
+			include : FlipAround df.middle (top / 2)
 
-	create-glyph 'g.singleStoreyEarlessRoundedHTB' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftRoundedShape XH SB (SmallArchDepthB - O)
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyShapeHookT XH dispiro 0 Stroke
+	define SingleStoreyConfig : object
+		singleStoreySerifless                 { SingleStorey.SeriflessBody      SingleStorey.RoundHook 0               }
+		singleStoreySerifed                   { SingleStorey.SerifedBody        SingleStorey.RoundHook 0               }
+		singleStoreyEarlessCorner             { SingleStorey.EarlessCornerBody  SingleStorey.RoundHook DToothlessRise  }
+		singleStoreyEarlessCornerHTB          { SingleStorey.EarlessCornerBody  SingleStorey.RoundHook 0               }
+		singleStoreyEarlessRounded            { SingleStorey.EarlessRoundedBody SingleStorey.RoundHook SmallArchDepthB }
+		singleStoreyEarlessRoundedHTB         { SingleStorey.EarlessRoundedBody SingleStorey.RoundHook 0               }
+		singleStoreyFlatHookSerifless         { SingleStorey.SeriflessBody      SingleStorey.FlatHook  0               }
+		singleStoreyFlatHookSerifed           { SingleStorey.SerifedBody        SingleStorey.FlatHook  0               }
+		singleStoreyEarlessCornerFlatHook     { SingleStorey.EarlessCornerBody  SingleStorey.FlatHook  DToothlessRise  }
+		singleStoreyEarlessCornerFlatHookHTB  { SingleStorey.EarlessCornerBody  SingleStorey.FlatHook  0               }
+		singleStoreyEarlessRoundedFlatHook    { SingleStorey.EarlessRoundedBody SingleStorey.FlatHook  SmallArchDepthB }
+		singleStoreyEarlessRoundedFlatHookHTB { SingleStorey.EarlessRoundedBody SingleStorey.FlatHook  0               }
 
-	define [SmallGSingleStoreyFlatHookShape df y0] : begin
-		local hd : FlatHookDepth df (9 / 8)
-		local xTerminal : Math.min (df.rightSB - hd.x - 0.1) : mix df.leftSB df.rightSB (1 / 5)
-		return : dispiro
-			widths.rhs
-			flat df.rightSB y0 [heading Downward]
-			curl df.rightSB (Descender + hd.y)
-			arcvh.superness DesignParameters.tightHookSuperness
-			flat (df.rightSB - hd.x) Descender
-			curl xTerminal Descender [heading Leftward]
+	foreach { suffix { bodyShape hookShape hookStart } } [Object.entries SingleStoreyConfig] : do
+		create-glyph "g.\(suffix)" : glyph-proc
+			include : MarkSet.p
+			set-base-anchor 'overlay' Middle (XH / 2)
+			define df : DivFrame 1
+			include : bodyShape df XH
+			include : hookShape df (XH - hookStart)
 
-	create-glyph 'g.singleStoreyFlatHookSerifless' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarRightShape
-		include : SmallGSingleStoreyFlatHookShape [DivFrame 1] XH
+		create-glyph "GScript.\(suffix)" : glyph-proc
+			include : MarkSet.capDesc
+			set-base-anchor 'overlay' Middle (CAP / 2)
+			define df : DivFrame 1
+			include : bodyShape df CAP
+			include : hookShape df (CAP - hookStart)
 
-	create-glyph 'g.singleStoreyFlatHookSerifed' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarRightShape
-		include : SmallGSingleStoreyFlatHookShape [DivFrame 1] XH
-		include : tagged 'serifRT' : RightwardTopSerif RightSB XH SideJut
-
-	create-glyph 'g.singleStoreyEarlessCornerFlatHook' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftToothlessShape XH SB DToothlessRise DMBlend
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyFlatHookShape [DivFrame 1] (XH - DToothlessRise)
-
-	create-glyph 'g.singleStoreyEarlessCornerFlatHookHTB' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftToothlessShape XH SB DToothlessRise DMBlend
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyFlatHookShape [DivFrame 1] XH
-
-	create-glyph 'g.singleStoreyEarlessRoundedFlatHook' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftRoundedShape XH SB (SmallArchDepthB - O)
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyFlatHookShape [DivFrame 1] (XH - SmallArchDepthB)
-
-	create-glyph 'g.singleStoreyEarlessRoundedFlatHookHTB' : glyph-proc
-		include : MarkSet.p
-		set-base-anchor 'overlay' Middle (XH / 2)
-		include : OBarLeftRoundedShape XH SB (SmallArchDepthB - O)
-		include : FlipAround Middle (XH / 2)
-		include : SmallGSingleStoreyFlatHookShape [DivFrame 1] XH
+		create-glyph "gPalatalHook.\(suffix)" : glyph-proc
+			include : MarkSet.p
+			set-base-anchor 'overlay' Middle (XH / 2)
+			define dfSub : DivFrame 0.75 2
+			include : bodyShape dfSub XH
+			include : hookShape dfSub (XH - hookStart)
+			include : PalatalHook.r
+				x -- RightSB
+				y -- 0
+				xLink -- dfSub.rightSB
+				refSw -- dfSub.mvs
+				maskOut -- [intersection [MaskBelow 0] [MaskLeft dfSub.rightSB]]
 
 	select-variant 'g' 'g'
 	link-reduced-variant 'g/sansSerif' 'g' MathSansSerif
@@ -176,28 +165,33 @@ glyph-block Letter-Latin-Lower-G : begin
 	select-variant 'gScript/hookTopBase' null (shapeFrom -- 'g')
 	select-variant 'gScript' 0x261 (shapeFrom -- 'g')
 		follow -- [if SLAB 'gScript/slabSerif' 'gScript/sansSerif']
+	select-variant 'GScript' 0xA7AC
+		follow -- [if SLAB 'gScript/slabSerif' 'gScript/sansSerif']
+	select-variant 'gPalatalHook' 0x1D83
+		follow -- [if SLAB 'gScript/slabSerif' 'gScript/sansSerif']
+
 
 	alias 'cyrl/de.SRB' null 'gScript'
 	alias 'cyrl/de.BGR' null 'gScript'
 
 	derive-composites 'gScriptHookTop' 0x260 'gScript/hookTopBase'
-		VerticalHook (RightSB - HalfStroke * HVContrast) XH HookX (-Hook) nothing (yExtension -- O)
+		VerticalHook.r RightSB XH HookX (-Hook) nothing
 
 	glyph-block-import Letter-Blackboard : BBS BBD BBBarRight
 	create-glyph 'mathbb/g' 0x1D558 : glyph-proc
 		include : MarkSet.p
 		include : intersection
 			OShapeOutline.NoOvershoot XH 0 SB (RightSB - BBD - BBS * HVContrast)
-			VBarLeft (SB + BBD + OX) 0 XH BBS
-		include : OBarRightShape
+			VBar.l (SB + BBD + OX) 0 XH BBS
+		include : OBarRight.shape
 			right -- RightSB - BBD
 			top  -- XH
 			stroke -- BBS
-		include : SmallGSingleStoreyShapeHookT XH dispiro 0 BBS
-		include : HBarTop (RightSB - BBD) RightSB XH BBS
+		include : SingleStorey.RoundHookT dispiro [DivFrame 1] XH 0 BBS
+		include : HBar.t (RightSB - BBD) RightSB XH BBS
 		include : intersection
-			VBarRight (RightSB - BBD) Descender XH BBS
-			SmallGSingleStoreyShapeHookT XH spiro-outline 1 BBS
+			VBar.r (RightSB - BBD) Descender XH BBS
+			SingleStorey.RoundHookT spiro-outline [DivFrame 1] XH 1 BBS
 
 	do
 		define l : mix 0 SB 0.3
@@ -206,7 +200,7 @@ glyph-block Letter-Latin-Lower-G : begin
 		define bwSingleStorey : AdviceStroke2 2 4 XH
 		define [derive suffix bw] : create-glyph "gbar.\(suffix)" : glyph-proc
 			include [refer-glyph "g.\(suffix)"] AS_BASE
-			include : HBar l r [query-glyph "g.\(suffix)"].baseAnchors.overlay.y bw
+			include : HBar.m l r [query-glyph "g.\(suffix)"].baseAnchors.overlay.y bw
 
 		derive 'doubleStorey'                       bwDoubleStorey
 		derive 'openDoubleStorey'                   bwDoubleStorey

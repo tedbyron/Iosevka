@@ -218,13 +218,13 @@ glyph-block Autobuild-Transformed : begin
 		list 0x02B6 'invSmcpR'
 		list 0x02B7 'w'
 		list 0x02B8 'y'
-		list 0x02C0 'fineglottalstop'
-		list 0x02C1 'finerevglottalstop'
-		list 0x02E0 'latingamma'
+		list 0x02C0 'fineGlottalStop'
+		list 0x02C1 'fineRevGlottalStop'
+		list 0x02E0 'latn/gamma'
 		list 0x02E1 'l'
 		list 0x02E2 's'
 		list 0x02E3 'x'
-		list 0x02E4 'revglottalstop'
+		list 0x02E4 'revGlottalStop'
 		list 0x2071 'i'
 		list 0x207F 'n'
 		list 0x1D43 'a'
@@ -235,7 +235,7 @@ glyph-block Autobuild-Transformed : begin
 		list 0x1D48 'd'
 		list 0x1D49 'e'
 		list 0x1D4A 'turne'
-		list 0x1D4B 'grek/epsilon'
+		list 0x1D4B 'latn/epsilon'
 		list 0x1D4C 'turnepsilon'
 		list 0x1D4D 'g'
 		list 0x1D4E 'turni'
@@ -263,9 +263,9 @@ glyph-block Autobuild-Transformed : begin
 		list 0x1D9C 'c'
 		list 0x1D9D 'cCurlyTail'
 		list 0x1D9E 'eth'
-		list 0x1D9F 'latn/revSmallEpsilon'
+		list 0x1D9F 'latn/epsilonRev'
 		list 0x1DA0 'f'
-		list 0x1DA1 'turnf'
+		list 0x1DA1 'dotlessjBar'
 		list 0x1DA2 'gScript'
 		list 0x1DA3 'turnh'
 		list 0x1DA4 'iBarOver'
@@ -275,6 +275,7 @@ glyph-block Autobuild-Transformed : begin
 		list 0x1DA8 'jCurlyTail'
 		list 0x1DAB 'smcpL'
 		list 0x1DA9 'lRTail'
+		list 0x1DAA 'lPalatalHook'
 		list 0x1DAC 'mLTail'
 		list 0x1DAD 'turnmLeg'
 		list 0x1DAE 'nltail'
@@ -314,8 +315,6 @@ glyph-block Autobuild-Transformed : begin
 		list 0x1D3D 'OU'
 		list 0x1D3E 'P'
 		list 0x1D3F 'R'
-		list null   'C' # there is no superscript C in unicode, but is is used for the MC symbol
-		list null   'S' # there is no superscript S in unicode, but is is used for the SM symbol
 		list 0x1D40 'T'
 		list 0x1D41 'U'
 		list 0x1D42 'W'
@@ -325,12 +324,103 @@ glyph-block Autobuild-Transformed : begin
 		list 0x207C 'equal'
 		list 0x207D 'parenLeft'
 		list 0x207E 'parenRight'
-		list 0xA7F8 'smcpHbar'
-		list 0xA7F9 'oe'
+		list 0xA69C 'cyrl/yer'
+		list 0xA69D 'cyrl/yeri'
 		list 0xA702 'subst'
 		list 0xA703 'substBarNoRise'
 		list 0xA704 'supst'
 		list 0xA705 'supstBarNoRise'
+		list 0xA71B 'arrowUp.NWID'
+		list 0xA71C 'arrowDown.NWID'
+		list 0xA71D 'alveolarclick'
+		list 0xA71E 'exclamDownAlt'
+		list 0xA7F2 'C'
+		list 0xA7F3 'F'
+		list 0xA7F4 'Q'
+		list 0xA7F8 'smcpHStroke'
+		list 0xA7F9 'oe'
+		list 0xAB5C 'heng'
+		list 0xAB5E 'lTildeOver'
+		list 0xAB69 'turnw'
+		list 0x107AF 'tRTail'
+		list 0x1078B 'dHookBottom'
+		list 0x107A5 'q'
+		list 0x10792 'smcpG'
+		list 0x107B3 'glottalStopBar'
+		list 0x10795 'hBar'
+		list 0x10797 'hHookTopLTail'
+		list 0x107B0 'vHookTop'
+		list 0x107A9 'rFlap'
+		list 0x107A8 'rRTail'
+		list 0x10784 'smcpB'
+		list 0x107AA 'smcpR'
+		list 0x10796 'smcpH'
+		list 0x107B4 'revGlottalStopBar'
+		list 0x1079B 'lBelt'
+		list 0x1079E 'lyogh'
+		list 0x1079D 'lBeltRTail'
+		list 0x1079F 'lyoghRTail'
+		list 0x107A1 'turnyBelt'
+		list 0x1079C 'smcpLBelt'
+		list 0x107A0 'turny'
+		list 0x107A6 'turnrlongleg'
+		list 0x107A7 'rTurnLongLetRTail'
+		list 0x10785 'bHookTop'
+		list 0x1078C 'dHookTop'
+		list 0x1078D 'dHookTopBottom'
+		list 0x10798 'dotlessjBarHookTop'
+		list 0x10793 'gScriptHookTop'
+		list 0x10794 'smcpGHookTop'
+		list 0x107B5 'bullEye'
+		list 0x107B6 'dentalclick'
+		list 0x107B8 'palatoalveolarclick'
+		list 0x107B9 'retroflexClickHook'
+		list 0x107B7 'alveolarlateralclick'
+		list 0x107B2 'smcpY'
+		list 0x107A4 'closeomega'
+		list 0x107A2 'oSlash'
+		list 0x1078E 'eRev'
+		list 0x10791 'ramshorn'
+		list 0x1078F 'closeturnepsilon'
+		list 0x10783 'ae'
+		list 0x107A3 'smcpOE'
+		list 0x10781 'triangleColon'
+		list 0x10782 'halfTriangleColon'
+		list 0x1E030 'cyrl/a'
+		list 0x1E031 'cyrl/be'
+		list 0x1E032 'cyrl/ve'
+		list 0x1E033 'cyrl/ghe'
+		list 0x1E034 'cyrl/de'
+		list 0x1E035 'cyrl/ie'
+		list 0x1E036 'cyrl/zhe'
+		list 0x1E037 'cyrl/ze'
+		list 0x1E038 'cyrl/i'
+		list 0x1E039 'cyrl/ka'
+		list 0x1E03A 'cyrl/el'
+		list 0x1E03B 'cyrl/em'
+		list 0x1E03C 'cyrl/o'
+		list 0x1E03D 'cyrl/pe'
+		list 0x1E03E 'cyrl/er'
+		list 0x1E03F 'cyrl/es'
+		list 0x1E040 'cyrl/te'
+		list 0x1E041 'cyrl/u'
+		list 0x1E042 'cyrl/ef'
+		list 0x1E043 'cyrl/ha'
+		list 0x1E044 'cyrl/tse'
+		list 0x1E045 'cyrl/che'
+		list 0x1E046 'cyrl/sha'
+		list 0x1E047 'cyrl/yery'
+		list 0x1E048 'cyrl/e'
+		list 0x1E049 'cyrl/yu'
+		list 0x1E04B 'cyrl/schwa'
+		list 0x1E04C 'cyrl/Ukrainiani'
+		list 0x1E04D 'cyrl/je'
+		list 0x1E04E 'cyrl/oe'
+		list 0x1E04F 'cyrl/ue'
+		list 0x1E050 'cyrl/palochka'
+		list 0x1E06B 'cyrl/the'
+		list 0x1E06D 'cyrl/KazakhShortu'
+		list null   'S' # there is no superscript S in unicode, but is is used for the SM symbol
 
 	createSuperscripts 'numerator' NumeratorForm : list
 		list null 'zero.onum'
@@ -405,6 +495,33 @@ glyph-block Autobuild-Transformed : begin
 		list 0xA701 'substBarNoRise'
 		list 0xA706 'supst'
 		list 0xA707 'supstBarNoRise'
+		list 0xA71F 'exclamDownAlt'
+		list 0x1E051 'cyrl/a'
+		list 0x1E052 'cyrl/be'
+		list 0x1E053 'cyrl/ve'
+		list 0x1E054 'cyrl/ghe'
+		list 0x1E055 'cyrl/de'
+		list 0x1E056 'cyrl/ie'
+		list 0x1E057 'cyrl/zhe'
+		list 0x1E058 'cyrl/ze'
+		list 0x1E059 'cyrl/i'
+		list 0x1E05A 'cyrl/ka'
+		list 0x1E05B 'cyrl/el'
+		list 0x1E05C 'cyrl/o'
+		list 0x1E05D 'cyrl/pe'
+		list 0x1E05E 'cyrl/es'
+		list 0x1E05F 'cyrl/u'
+		list 0x1E060 'cyrl/ef'
+		list 0x1E061 'cyrl/ha'
+		list 0x1E062 'cyrl/tse'
+		list 0x1E063 'cyrl/che'
+		list 0x1E064 'cyrl/sha'
+		list 0x1E065 'cyrl/yer'
+		list 0x1E066 'cyrl/yery'
+		list 0x1E067 'cyrl/ge'
+		list 0x1E068 'cyrl/Ukrainiani'
+		list 0x1E069 'cyrl/dze'
+		list 0x1E06A 'cyrl/dzhe'
 
 	createSubscripts 'denominator' DenominatorForm : list
 		list null 'zero.onum'
@@ -481,6 +598,10 @@ glyph-block Autobuild-Transformed : begin
 		list 0x2DFD 'cyrl/smallYus'
 		list 0x2DFE 'cyrl/bigYus'
 		list 0x2DFF 'cyrl/bigYusIotified'
+		list 0xA674 'cyrl/ye'
+		list 0xA675 'cyrl/i'
+		list 0xA67B 'cyrl/omega'
+		list 0xA69F 'cyrl/iotified{e}'
 
 	createMedievalCombs 0 CAP : list
 		list 0x365 'i'
@@ -494,18 +615,25 @@ glyph-block Autobuild-Transformed : begin
 		list 0x1DF4 'uDieresis'
 		list 0x2DE0 'cyrl/be'
 		list 0x2DFA 'cyrl/yat'
+		list 0xA676 'cyrl/yi'
+		list 0xA678 'cyrl/yer'
+		list 0xA679 'cyrl/yery'
+		list 0xA67A 'cyrl/yeri'
+		list 0x1E08F 'cyrl/Ukrainiani'
 
 	createMedievalCombs Descender XH : list
 		list 0x1DDA 'g'
 		list 0x1DD7 'cCedilla'
-		list 0x1DE9 'grek/beta'
+		list 0x1DE9 'latn/beta'
 		list 0x1DEE 'p'
 		list 0x2DEC 'cyrl/er'
+		list 0xA677 'cyrl/u'
 
 	createMedievalCombs Descender CAP : list
 		list 0x1DEB 'f'
 		list 0x1DE5 'longs'
 		list 0x1DEF 'esh'
+		list 0xA69E 'cyrl/ef'
 
 	createMedievalBelowCombs : list
 		list 0x0359 'asterisk/sMid'
@@ -560,7 +688,6 @@ glyph-block Autobuild-Transformed-Mathematical : begin
 	define ObliqueBlackboardBolds : Array.from '𝔻𝕕𝕖𝕚𝕛'
 
 	define [CreateMathDerivatives groupName tfm gr base letters overrides] : begin
-		if recursive : return nothing
 		local jobs {}
 		local overrideMap : new Map (overrides || {})
 		foreach j [range 0 letters.length] : begin
@@ -573,7 +700,6 @@ glyph-block Autobuild-Transformed-Mathematical : begin
 		createMathDerivedSeriesImpl groupName tfm jobs
 
 	define [CreateMathAliasableImpl groupName altGroupName tfm gr base letters overrides] : begin
-		if recursive : return nothing
 		local overrideMap : new Map (overrides || {})
 		foreach j [range 0 letters.length] : begin
 			local letter letters.(j)
@@ -665,12 +791,13 @@ glyph-block Autobuild-Rhotic : begin
 		return { targetNameMap records }
 
 	createRhotics 'er' (XH / 2) : list { 0x25A 'schwa' }
-	createRhotics 'revLatinEpsilonEr' (XH * [mix 0.65 1 0.5]) : list { 0x25D 'latn/revSmallEpsilon' }
+	createRhotics 'revLatinEpsilonEr' (XH * [mix 0.65 1 0.5]) : list { 0x25D 'latn/epsilonRev' }
 
 glyph-block Autobuild-Rotated : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
 	glyph-block-import Recursive-Build : Miniature
+	glyph-block-import Symbol-Math-APL : LinkAplFormForNwidWwid
 
 	for-width-kinds WideWidth1 : do
 		local s : (RightSB - SB - O * 4 + (MosaicWidth - Width) * 0.5) / CAP
@@ -692,3 +819,7 @@ glyph-block Autobuild-Rotated : begin
 		InftyLikeShape 'propto'   0x221D 'rotetedPropto'
 		InftyLikeShape 'infty'    0x221E 'eight.lnum.crossing'
 		InftyLikeShape 'invLazyS' 0x223E 'revS.serifless'
+
+	# Link APLF for BQN
+	LinkAplFormForNwidWwid 'infty'
+	LinkAplFormForNwidWwid 'invLazyS'

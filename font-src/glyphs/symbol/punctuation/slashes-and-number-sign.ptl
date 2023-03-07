@@ -10,8 +10,12 @@ glyph-block Symbol-Punctuation-Slashes-And-Number-Sign : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
 
+	glyph-block-export slashDefautLeft
+	glyph-block-export slashDefaultRight
+
 	define slashDefautLeft   : SB + HalfStroke
 	define slashDefaultRight : RightSB - HalfStroke
+
 	define [SlashShape l r _t _b _w] : glyph-proc
 		local w : fallback _w Stroke
 		local t : fallback _t ParenTop
@@ -74,8 +78,8 @@ glyph-block Symbol-Punctuation-Slashes-And-Number-Sign : begin
 		define [UprightHBars height lx l r p] : begin
 			define { nsTop nsBot } height
 			return : union
-				HBar lx r [mix nsTop nsBot 0.3]
-				HBar lx r [mix nsTop nsBot 0.7]
+				HBar.m lx r [mix nsTop nsBot 0.3]
+				HBar.m lx r [mix nsTop nsBot 0.7]
 
 		define [UprightHBarsOpen height lx l r p] : begin
 			define { nsTop nsBot } height
@@ -90,8 +94,8 @@ glyph-block Symbol-Punctuation-Slashes-And-Number-Sign : begin
 			define { nsTop nsBot } height
 			define hsp : HspT l r
 			return : union
-				VBarLeft  (l + hsp + p * fine) nsBot nsTop fine
-				VBarRight (r - hsp - p * fine) nsBot nsTop fine
+				VBar.l  (l + hsp + p * fine) nsBot nsTop fine
+				VBar.r (r - hsp - p * fine) nsBot nsTop fine
 
 		define [SlantedDim l r] : begin
 			define hsp : HspT l r
@@ -104,8 +108,8 @@ glyph-block Symbol-Punctuation-Slashes-And-Number-Sign : begin
 			define { nsTop nsBot } height
 			define [object shift] : SlantedDim l r
 			return : union
-				HBar (lx + shift) (r + shift) [mix nsTop nsBot 0.3]
-				HBar (lx - shift) (r - shift) [mix nsTop nsBot 0.7]
+				HBar.m (lx + shift) (r + shift) [mix nsTop nsBot 0.3]
+				HBar.m (lx - shift) (r - shift) [mix nsTop nsBot 0.7]
 		define [SlantedHBarsOpen height lx l r p] : begin
 			define { nsTop nsBot } height
 			define [object x w] : SlantedDim l r

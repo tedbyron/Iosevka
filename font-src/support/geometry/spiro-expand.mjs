@@ -65,8 +65,9 @@ export class BiKnotCollector {
 		}
 	}
 	headsTo(direction) {
+		const transformedDirection = this.gizmo.applyOffset(direction);
 		const k0 = this.controlKnots[this.controlKnots.length - 1];
-		if (k0) k0.proposedNormal = direction;
+		if (k0) k0.proposedNormal = transformedDirection;
 	}
 	setType(type) {
 		const k0 = this.controlKnots[this.controlKnots.length - 1];
@@ -146,7 +147,18 @@ export class SpiroExpander {
 			rhs[j].y = knot.y - knot.d2 * dy;
 		}
 		this.interpolateUnimportantKnots(lhs, rhs);
-		return { lhs, rhs };
+
+		const lhsUntransformed = [],
+			rhsUntransformed = [];
+		for (const z of lhs) {
+			const u = this.gizmo.unapply(z);
+			lhsUntransformed.push({ type: z.type, x: u.x, y: u.y });
+		}
+		for (const z of rhs) {
+			const u = this.gizmo.unapply(z);
+			rhsUntransformed.push({ type: z.type, x: u.x, y: u.y });
+		}
+		return { lhs, rhs, lhsUntransformed, rhsUntransformed };
 	}
 	interpolateUnimportantKnots(lhs, rhs) {
 		for (let j = 0; j < this.controlKnots.length; j++) {

@@ -354,6 +354,7 @@ glyph-block Symbol-Geometric-Plain : for-width-kinds WideWidth1
 		StdBlackShape DiamondFill 'blackCenteredDiamond' 0x2BC1 Size.Oblique
 
 		StdWhiteShape DiamondFill 'whiteDiamond' 0x25C7 Size.Oblique
+		StdWhiteShape DiamondFill 'whiteDiamondOperatorImpl' null [Object.assign {.} Size.Oblique {.sw ([Math.sqrt 2] * [AdviceStroke 4])}]
 
 		StdBlackShape DiamondFill 'blackMediumDiamond' 0x2B25 Size.MediumOblique
 		StdBlackShape DiamondFill 'blackSmallDiamond' 0x2B29 Size.SmallOblique
@@ -408,7 +409,7 @@ glyph-block Symbol-Geometric-Plain : for-width-kinds WideWidth1
 			define rs : Geom.TallSize / (sizeOrig * 1.5)
 			return : CircleShape cx cy (sizeOrig * rs - sw)
 
-		StdBlackShape CircleShape 'blackCircleO' null
+		StdBlackShape CircleShape 'blackCircleO' null {.size 0.995}
 		StdBlackShape CircleShape 'blackCircle' 0x25CF
 
 		StdWhiteShape CircleShape 'whiteCircle' 0x25CB

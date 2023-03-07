@@ -53,10 +53,10 @@ glyph-block Symbol-Math-APL : begin
 	create-glyph 'apl/quad' 0x2395 : glyph-proc
 		local l [mix 0 SB (1 / 3)]
 		local r [mix Width RightSB (1 / 3)]
-		include : HBarTop    l r aplBoxTop aplBoxSW
-		include : HBarBottom l r aplBoxBot aplBoxSW
-		include : VBarLeft   l aplBoxTop aplBoxBot aplBoxSW
-		include : VBarRight  r aplBoxTop aplBoxBot aplBoxSW
+		include : HBar.t    l r aplBoxTop aplBoxSW
+		include : HBar.b l r aplBoxBot aplBoxSW
+		include : VBar.l   l aplBoxTop aplBoxBot aplBoxSW
+		include : VBar.r  r aplBoxTop aplBoxBot aplBoxSW
 
 	create-glyph 'apl/quadShadow' : glyph-proc
 		local l [mix 0 SB (1 / 3)]
@@ -70,18 +70,18 @@ glyph-block Symbol-Math-APL : begin
 	create-glyph 'apl/iBar' 0x2336 : glyph-proc
 		local l [mix 0 SB (1 / 3)]
 		local r [mix Width RightSB (1 / 3)]
-		include : HBarTop    l r OperTop aplBoxSW
-		include : HBarBottom l r OperBot aplBoxSW
-		include : VBar    Middle OperTop OperBot aplBoxSW
+		include : HBar.t    l r OperTop aplBoxSW
+		include : HBar.b l r OperBot aplBoxSW
+		include : VBar.m    Middle OperTop OperBot aplBoxSW
 
 	create-glyph 'apl/squish' 0x2337 : glyph-proc
 		local l : mix SB RightSB (1 / 8)
 		local r : mix RightSB SB (1 / 8)
 		include : union
-			HBarTop    l r aplBoxTop aplBoxSW
-			HBarBottom l r aplBoxBot aplBoxSW
-			VBarLeft   l aplBoxTop aplBoxBot aplBoxSW
-			VBarRight  r aplBoxTop aplBoxBot aplBoxSW
+			HBar.t    l r aplBoxTop aplBoxSW
+			HBar.b l r aplBoxBot aplBoxSW
+			VBar.l   l aplBoxTop aplBoxBot aplBoxSW
+			VBar.r  r aplBoxTop aplBoxBot aplBoxSW
 
 	create-glyph 'apl/lamp' 0x235D : glyph-proc
 		local shift : OperTop - 2 * ArchDepth - OperBot
@@ -104,10 +104,10 @@ glyph-block Symbol-Math-APL : begin
 				composite-proc [InnerCircleMask fine] [FlipAround Middle (OperTop - ArchDepth)]
 
 	create-glyph 'apl/bar' : glyph-proc
-		include : VBar Middle aplBoxTop aplBoxBot aplBoxSW
+		include : VBar.m Middle aplBoxTop aplBoxBot aplBoxSW
 
 	create-glyph 'apl/longBar' : glyph-proc
-		include : VBar Middle aplBoxTop aplBoxBot aplBoxSW
+		include : VBar.m Middle aplBoxTop aplBoxBot aplBoxSW
 
 	create-glyph 'apl/minus' : glyph-proc
 		include : dispiro
@@ -137,8 +137,8 @@ glyph-block Symbol-Math-APL : begin
 
 	# Boxed
 	create-glyph 0x2338 : aplBoxed : refer-glyph 'equal'
-	create-glyph 0x233A : aplBoxed : refer-glyph 'whiteDiamond.NWID'
-	create-glyph 0x233B : aplBoxed : refer-glyph 'whiteSmallCircle.NWID'
+	create-glyph 0x233A : aplBoxed : refer-glyph 'whiteDiamondOperator'
+	create-glyph 0x233B : aplBoxed : refer-glyph 'mathSmallCircle'
 	create-glyph 0x233C : aplBoxed : refer-glyph 'whiteCircle.NWID'
 	create-glyph 0x2341 : aplBoxed : refer-glyph 'slash'
 	create-glyph 0x2342 : aplBoxed : refer-glyph 'backslash'
@@ -152,7 +152,7 @@ glyph-block Symbol-Math-APL : begin
 	create-glyph 0x2353 : aplBoxed : refer-glyph 'wedge'
 	create-glyph 0x2354 : aplBoxed : refer-glyph 'nabla.aplForm'
 	create-glyph 0x2357 : aplBoxed : refer-glyph 'arrowDown.NWID'
-	create-glyph 0x235E : aplBoxed : refer-glyph 'asciiSingleQuote.straight'
+	create-glyph 0x235E : aplBoxed : refer-glyph 'asciiSingleQuote/body/straight'
 	create-glyph 0x236F : aplBoxed : refer-glyph 'notequal'
 
 	define [DeriveBoxed src] : aplBoxed : refer-glyph src
@@ -184,19 +184,20 @@ glyph-block Symbol-Math-APL : begin
 			begin marks
 			refer-glyph srcs.1
 			clear-anchors
-	AplAccented 0x2362 'nabla.aplForm'             'dieresisAbove'  [MarkSet.tack]
-	AplAccented 0x2361 'top'                       'dieresisAbove'  [MarkSet.tack]
-	AplAccented 0x2363 'asterisk.pentaSMid'        'dieresisAbove'  [MarkSet.plus]
-	AplAccented 0x2364 'whiteSmallCircle.NWID'     'dieresisAbove'  [MarkSet.plus]
-	AplAccented 0x2365 'whiteCircle.NWID'          'dieresisAbove'  [MarkSet.plus]
-	AplAccented 0x2368 'asciiTilde.low'            'dieresisAbove'  [MarkSet.plus]
-	AplAccented 0x2369 'greater.narrow'            'dieresisAbove'  [MarkSet.plus]
-	AplAccented 0x234A 'bot'                       'underlineBelow' [MarkSet.tack]
-	AplAccented 0x2358 'asciiSingleQuote.straight' 'underlineBelow' [MarkSet.plus]
-	AplAccented 0x235A 'whiteDiamond.NWID'         'underlineBelow' [MarkSet.plus]
-	AplAccented 0x235B 'whiteSmallCircle.NWID'     'underlineBelow' [MarkSet.plus]
-	AplAccented 0x235C 'whiteCircle.NWID'          'underlineBelow' [MarkSet.plus]
-	AplAccented 0x2377 'smallElement'              'underlineBelow' [MarkSet.plus]
+
+	AplAccented 0x2362 'nabla.aplForm'                  'dieresisAbove'  [MarkSet.tack]
+	AplAccented 0x2361 'top'                            'dieresisAbove'  [MarkSet.tack]
+	AplAccented 0x2363 'asterisk.pentaSMid'             'dieresisAbove'  [MarkSet.plus]
+	AplAccented 0x2364 'mathSmallCircle'                'dieresisAbove'  [MarkSet.plus]
+	AplAccented 0x2365 'whiteCircle.NWID'               'dieresisAbove'  [MarkSet.plus]
+	AplAccented 0x2368 'asciiTilde.low'                 'dieresisAbove'  [MarkSet.plus]
+	AplAccented 0x2369 'greater.narrow'                 'dieresisAbove'  [MarkSet.plus]
+	AplAccented 0x234A 'bot'                            'underlineBelow' [MarkSet.tack]
+	AplAccented 0x2358 'asciiSingleQuote/body/straight' 'underlineBelow' [MarkSet.plus]
+	AplAccented 0x235A 'whiteDiamondOperator'           'underlineBelow' [MarkSet.plus]
+	AplAccented 0x235B 'mathSmallCircle'                'underlineBelow' [MarkSet.plus]
+	AplAccented 0x235C 'whiteCircle.NWID'               'underlineBelow' [MarkSet.plus]
+	AplAccented 0x2377 'smallElement'                   'underlineBelow' [MarkSet.plus]
 
 	derive-composites 'apl/alphaBar' 0x2376 'grek/alpha' [refer-glyph 'underlineBelow'] [clear-anchors]
 	derive-composites 'apl/iotaBar' 0x2378 'grek/iota' [refer-glyph 'underlineBelow'] [clear-anchors]
@@ -228,6 +229,7 @@ glyph-block Symbol-Math-APL : begin
 
 	# APL uses White Circle and Arrows as operators, this function links them as APL form
 	# and fixes Unicode assignments
+	glyph-block-export LinkAplFormForNwidWwid
 	define [LinkAplFormForNwidWwid gn] : begin
 		define gWwid : query-glyph "\(gn).WWID"
 		define gNwid : query-glyph "\(gn).NWID"
@@ -244,3 +246,16 @@ glyph-block Symbol-Math-APL : begin
 	LinkAplFormForNwidWwid 'arrowRight'
 	LinkAplFormForNwidWwid 'arrowUp'
 	LinkAplFormForNwidWwid 'arrowDown'
+
+	# BQN symbols
+	LinkAplFormForNwidWwid 'arrowUpDown'
+	LinkAplFormForNwidWwid 'arrowUpLeft'
+	LinkAplFormForNwidWwid 'arrowDownLeft'
+	LinkAplFormForNwidWwid 'hookArrowLeft'
+	LinkAplFormForNwidWwid 'arrowLeftRightHR'
+	LinkAplFormForNwidWwid 'dblArrowLeft'
+	LinkAplFormForNwidWwid 'uni231C'
+	LinkAplFormForNwidWwid 'uni2389'
+	LinkAplFormForNwidWwid 'uni238A'
+	LinkAplFormForNwidWwid 'uni25F6'
+	LinkAplFormForNwidWwid 'uni2687'

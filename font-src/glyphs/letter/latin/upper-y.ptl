@@ -8,6 +8,7 @@ glyph-module
 glyph-block Letter-Latin-Upper-Y : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
+	glyph-block-import Letter-Shared : CreateAccentedComposition
 	glyph-block-import Letter-Latin-X : HalfXStrand
 	glyph-block-import Letter-Shared : SetGrekUpperTonos
 	glyph-block-import Letter-Shared-Shapes : SerifFrame WithAIHSerifsMask
@@ -27,9 +28,9 @@ glyph-block Letter-Latin-Upper-Y : begin
 		match slabType
 			[Just SLAB-ALL] : begin
 				include : composite-proc sf.lt.full sf.rt.full
-				include : CenterBottomSerif Middle bot MidJutSide
+				include : HSerif.mb Middle bot MidJutSide
 			[Just SLAB-MOTION] : include sf.lt.outer
-			[Just SLAB-BASE] : include : CenterBottomSerif Middle bot MidJutSide
+			[Just SLAB-BASE] : include : HSerif.mb Middle bot MidJutSide
 
 	define [YShape bodyType top bot] : glyph-proc
 		local cross : YCrossPos top bot
@@ -37,12 +38,15 @@ glyph-block Letter-Latin-Upper-Y : begin
 			HalfXStrand bodyType SLAB SB top Middle cross 0.1 0.4 0.28
 		include : tagged 'strokeRT' : WithAIHSerifsMask CAP 0 SB RightSB
 			HalfXStrand bodyType SLAB RightSB top Middle cross 0.1 0.4 0.28
-		include : VBar Middle bot (cross + HalfStroke)
+		include : VBar.m Middle bot (cross + HalfStroke)
 		set-base-anchor 'overlay' Middle cross
 
-	define [YOverlayShape] : glyph-proc
-		include : HOverlayBar SB RightSB (CAP * 0.45)
-		include : HOverlayBar SB RightSB (CAP * 0.25)
+	define [YenOverlayShape slabType] : glyph-proc
+		define { ks bot } : match slabType
+			([Just SLAB-ALL] || [Just SLAB-BASE])  { 0.25 Stroke }
+			otherwise                              { 0    0      }
+		include : HOverlayBar SB RightSB ([mix bot [YCrossPos CAP 0] 0.5] - OverlayStroke * ks)
+		include : HOverlayBar SB RightSB [mix bot [YCrossPos CAP 0] 1.0]
 
 	define [YHookLeftHookedStroke top bot] : begin
 		local cross : YCrossPos top bot
@@ -70,7 +74,7 @@ glyph-block Letter-Latin-Upper-Y : begin
 	define [UpsilonHookedSymbolShape top bot] : glyph-proc
 		local cross : YCrossPos top bot
 
-		include : VBar Middle bot (cross + HalfStroke)
+		include : VBar.m Middle bot (cross + HalfStroke)
 		include : YHookLeftHookedStroke top bot
 		include : YHookRightHookedStroke top bot
 
@@ -119,6 +123,17 @@ glyph-block Letter-Latin-Upper-Y : begin
 			eject-contour 'serifRT'
 			include : SetGrekUpperTonos (OX - HookX / 3)
 
+		create-glyph "YStroke.\(suffix)" : glyph-proc
+			include [refer-glyph "Y.\(suffix)"] AS_BASE ALSO_METRICS
+			local b : YCrossPos CAP 0
+			local t : CAP - [if (slabType === SLAB-ALL || slabType === SLAB-MOTION) Stroke 0]
+			include : HOverlayBar [mix 0 SB 0.5] [mix Width RightSB 0.5] [mix b t 0.5]
+				Math.min OverlayStroke ((t - b) * 0.625)
+
+		create-glyph "currency/yenSign.\(suffix)" : glyph-proc
+			include [refer-glyph "Y.\(suffix)"] AS_BASE ALSO_METRICS
+			include : YenOverlayShape slabType
+
 	select-variant 'Y' 'Y'
 	link-reduced-variant 'Y/sansSerif' 'Y' MathSansSerif
 	select-variant 'YHookTop' 0x1B3 (follow -- 'Y')
@@ -130,20 +145,21 @@ glyph-block Letter-Latin-Upper-Y : begin
 	select-variant 'grek/Upsilon' 0x3A5 (follow -- 'Y')
 	link-reduced-variant 'grek/Upsilon/sansSerif' 'grek/Upsilon' MathSansSerif (follow -- 'Y/sansSerif')
 	alias 'cyrl/Ue' 0x4AE 'Y'
-	derive-glyphs 'currency/yenSign' 0xA5 'Y' : lambda [src gr] : glyph-proc
-		include [refer-glyph src] AS_BASE ALSO_METRICS
-		include : YOverlayShape
+	select-variant 'currency/yenSign' 0xA5 (follow -- 'Y')
 
 	create-glyph 'YStrokeOverlay' : HOverlayBar ([mix 0 SB 0.5]) ([mix Width RightSB 0.5]) [mix 0 CAP 0.75]
 	derive-composites 'YStroke' 0x24E 'Y' 'YStrokeOverlay'
 
+	CreateAccentedComposition 'cyrl/KazakhShortU' 0x4B0 'cyrl/Ue' 'barOver'
+	CreateAccentedComposition 'cyrl/KazakhShortu' 0x4B1 'cyrl/ue' 'barOver'
+	
 	# Blackboard
 	glyph-block-import Letter-Blackboard : BBS BBD
 	create-glyph 'mathbb/Y' 0x1D550 : glyph-proc
 		local yCross : CAP * 0.4
 
 		include : MarkSet.capital
-		include : HBarTop SB (SB + BBD) CAP BBS
+		include : HBar.t SB (SB + BBD) CAP BBS
 		include : intersection
 			Rect CAP 0 (-Width) (2 * Width)
 			union
@@ -158,7 +174,7 @@ glyph-block Letter-Latin-Upper-Y : begin
 			Rect CAP yCross (-Width) (2 * Width)
 			ExtLineCenter 1 BBS  RightSB CAP (Middle + BBD / 2) yCross
 
-		include : HBarBottom (Middle - BBD / 2) (Middle + BBD / 2) 0 BBS
+		include : HBar.b (Middle - BBD / 2) (Middle + BBD / 2) 0 BBS
 		include : union
-			VBar (Middle - BBD / 2) 0 yCross BBS
-			VBar (Middle + BBD / 2) 0 yCross BBS
+			VBar.m (Middle - BBD / 2) 0 yCross BBS
+			VBar.m (Middle + BBD / 2) 0 yCross BBS

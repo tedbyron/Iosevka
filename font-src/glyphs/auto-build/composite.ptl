@@ -335,10 +335,10 @@ glyph-block AutoBuild-Enclosure : begin
 		define [object width mockInnerWidth sw top bot left right] : circleDimens digits ww
 		set-width width
 		include : union
-			HBarTop    left right top sw
-			HBarBottom left right bot sw
-			VBarLeft   left bot top   sw
-			VBarRight  right bot top  sw
+			HBar.t    left right top sw
+			HBar.b left right bot sw
+			VBar.l   left bot top   sw
+			VBar.r  right bot top  sw
 		include : AddEnclosureMark digits : circleDimens digits ww
 
 	define [createTwoRowBoxedGlyphs digits demands]
@@ -347,10 +347,10 @@ glyph-block AutoBuild-Enclosure : begin
 		define [object width mockInnerWidth sw top bot left right] : circleDimens digits ww
 		set-width width
 		include : union
-			HBarTop    left right top sw
-			HBarBottom left right bot sw
-			VBarLeft   left bot top   sw
-			VBarRight  right bot top  sw
+			HBar.t    left right top sw
+			HBar.b left right bot sw
+			VBar.l   left bot top   sw
+			VBar.r  right bot top  sw
 		include : AddEnclosureMarkTwoLine digits : circleDimens digits ww
 
 	define [createDashedBoxedGlyphs digits demands]
@@ -360,17 +360,17 @@ glyph-block AutoBuild-Enclosure : begin
 		set-width width
 		include : difference
 			union
-				HBarTop    left right top sw
-				HBarBottom left right bot sw
-				VBarLeft   left bot top   sw
-				VBarRight  right bot top  sw
+				HBar.t    left right top sw
+				HBar.b left right bot sw
+				VBar.l   left bot top   sw
+				VBar.r  right bot top  sw
 			union
-				VBar [mix left right 0.25] bot top sw
-				VBar [mix left right 0.5] bot top sw
-				VBar [mix left right 0.75] bot top sw
-				HBar left right [mix bot top 0.25] sw
-				HBar left right [mix bot top 0.50] sw
-				HBar left right [mix bot top 0.75] sw
+				VBar.m [mix left right 0.25] bot top sw
+				VBar.m [mix left right 0.5] bot top sw
+				VBar.m [mix left right 0.75] bot top sw
+				HBar.m left right [mix bot top 0.25] sw
+				HBar.m left right [mix bot top 0.50] sw
+				HBar.m left right [mix bot top 0.75] sw
 		include : AddEnclosureMark digits : circleDimens digits ww
 
 	define [createInsetCircledGlyphs digits demands]
@@ -889,7 +889,7 @@ glyph-block Autobuild-Fractions : begin
 			breakRows    : function [a] { {a.0} [a.slice 1] }
 			baseShape    : function [nRows firstRowWidth] : glyph-proc
 				set-width Width
-				if fine : include : HBar SB RightSB SymbolMid (fine * 0.75)
+				if fine : include : HBar.m SB RightSB SymbolMid (fine * 0.75)
 				set-base-anchor 'fracBuildUp' (Middle - firstRowWidth * scaleFactor / 2) (SymbolMid + dist / 2)
 			shiftShape   : function [iRow nRows numWidth denWidth] : glyph-proc
 				local offset : -(numWidth / 2 + denWidth / 2) * scaleFactor
@@ -915,7 +915,6 @@ glyph-block Autobuild-Fractions : begin
 				set-mark-anchor 'fracBuildUp' 0 0 offset (-(CAP * scaleFactor + gap))
 
 	define [createFractions records]        : createFracImpl 'frac'      records : FractionLayout CAP [AdviceStroke 3] 0.55 0.05
-	define [createPowerlineStacks records]  : createFracImpl 'pwlStack'  records : FractionLayout CAP 0 0.6 0.15
 	define [createFractionsSmall records]   : createFracImpl 'fracSmall' records : FractionLayout XH [AdviceStroke 3] 0.55 0.05
 	define [createControlPictures2 records] : createFracImpl 'ctrlPict2' records : ControlPictureLayout 3.75 0.55  0.2
 	define [createControlPictures3 records] : createFracImpl 'ctrlPict3' records : ControlPictureLayout 5    0.375 0.1
@@ -948,12 +947,9 @@ glyph-block Autobuild-Fractions : begin
 		list 0x2105 { 'c' 'o' }
 		list 0x2106 { 'c' 'u' }
 
-	createPowerlineStacks : list
-		# Powerline LN symbol
-		list 0xE0A1 { 'L' 'N' }
-		list 0xE0A3 { 'C' 'N' }
-
 	createControlPictures2 : list
+		list 0xE0A1 {"L" "N"}
+		list 0xE0A3 {"C" "N"}
 		list 0x2408 {"B" "S"}
 		list 0x2409 {"H" "T"}
 		list 0x240A {"L" "F"}
@@ -1165,7 +1161,7 @@ glyph-block Autobuild-Ligatures : begin
 
 		applyRelations jobs.relApplications
 
-	define ijShrink : clamp 0.65 0.8 : StrokeWidthBlend 0.7 0.8
+	define ijShrink : clamp 0.65 0.9 : StrokeWidthBlend 0.7 0.9
 	createLigatures 'compatLigature1' false ijShrink ijShrink 1 1 0.05 : list
 		list 0x132 { 'I' 'J' }
 		list 0x133 { 'i' 'j' }
@@ -1186,7 +1182,7 @@ glyph-block Autobuild-Ligatures : begin
 		list 0x1F3 { 'd' 'z' }
 		list 0x478 { 'O' 'y' }
 		list 0x479 { 'o' 'y' }
-		list 0x20A7 { 'P' 't.flatHook' }
+		list 0x20A7 { 'P' 't' }
 		list 0x20A8 { 'R' 's' }
 		list 0x20AF { 'D' 'grek/rho' }
 		list 0x2116 { 'N' 'numeroRightHalf' }
@@ -1244,7 +1240,7 @@ glyph-block Autobuild-Pnonetic-Ligatures : begin
 	glyph-block-import Recursive-Build : Thinner
 	glyph-block-import Autobuild-Enclosure-Shared : CollectJobs CreateDerivedFontFromJobs EnsureComponentGlyphT applyRelations
 
-	define [createPhoneticLigatures prefix div _shrink1 _shrink2 wadj1 wadj2 demands] : begin
+	define [createPhoneticLigatures prefix div _shrink1 _shrink2 wadj1 wadj2 tfm demands] : begin
 		define CWidth : Width * div
 		define jobs : CollectJobs NON-DECOMPOSABLE NOT-CENTERED ALLOW-PROPORTIONAL prefix "" demands
 		local shrink1 : clamp 0 1 _shrink1
@@ -1260,18 +1256,23 @@ glyph-block Autobuild-Pnonetic-Ligatures : begin
 		local df1 : CreateDerivedFontFromJobs jobs {} : lambda [gs] : Thinner gs shrink1 true
 		local df2 : CreateDerivedFontFromJobs jobs {} : lambda [gs] : Thinner gs shrink2 true
 
+		# TODO: we need a better geometry to do such minkovski sums
+		define [createMaskout c1 c2 s] : begin
+			define dfg1 : df1.queryByNameEnsured c1
+			define dfg2 : df2.queryByNameEnsured c2
+			return : WithTransform [Translate (s + dfg1.advanceWidth * wadj1 - kern) 0] dfg2
+
 		foreach [{gn unicode { c1 c2 } mak} : items-of jobs.nonDecomposable] : if [not : query-glyph gn] : begin
 
-			local maskOuts {}
-			local s    0
 			local step (-OX)
+			local s    step
 			local dist (Stroke * 2)
-			while (s < dist) : do
-				maskOuts.push : new-glyph : glyph-proc
-					define dfg1 : df1.queryByNameEnsured c1
-					define dfg2 : df2.queryByNameEnsured c2
-					include dfg2
-					include : Translate (s + dfg1.advanceWidth * wadj1 - kern) 0
+
+			local maskOuts : list
+				createMaskout c1 c2 0.01
+				createMaskout c1 c2 (dist - 0.01)
+			while (s < dist) : begin
+				maskOuts.push : createMaskout c1 c2 s
 				set s : s + step
 
 			create-glyph gn unicode : glyph-proc
@@ -1285,17 +1286,31 @@ glyph-block Autobuild-Pnonetic-Ligatures : begin
 				include : Translate (dfg1.advanceWidth * wadj1 - kern) 0
 				local leftHalf : intersection dfg1
 					Rect (CAP * 2) (Descender * 2) (-CWidth) (dfg1.advanceWidth * wadj1 - kern + dfg2.advanceWidth * wadj2 / 2)
-				include : difference.apply null { leftHalf :: maskOuts}
+				include leftHalf
+				# include : difference.apply null { leftHalf :: maskOuts }
 				include : Ungizmo
 				include : Translate (-refW / 2) 0
 				include : Scale [clamp 0 1 ((CWidth - SB * 1.25) / (CWidth - SB * 2) * CWidth / refW)] 1
 				include : Translate (CWidth / 2) 0
 				include : Regizmo
 
+				include : tfm div
+
 		applyRelations jobs.relApplications
 
+	define [ToLetter] : glyph-proc
+	define [ToSuperscript div] : glyph-proc
+		local df : DivFrame df
+		include [Ungizmo] true
+		include [Translate (-df.middle) (-CAP)] true
+		include [Scale 0.7] true
+		include [Translate df.middle (CAP + AccentStackOffset / 2)] true
+		include [Regizmo] true
+	define [AddSlash] : glyph-proc
+		include [refer-glyph 'wideSlashOver']
+
 	define stdShrink : clamp 0.75 0.9 : StrokeWidthBlend 0.75 0.9
-	createPhoneticLigatures 'phonetic' para.diversityM stdShrink stdShrink 1 1 : list
+	createPhoneticLigatures 'phonetic' para.diversityM stdShrink stdShrink 1 1 ToLetter : list
 		list 0x02A3 { 'd/phoneticLeft'  'z'                     } 'b'
 		list 0x02A4 { 'd/phoneticLeft'  'ezh'                   } 'if'
 		list 0x02A5 { 'd/phoneticLeft'  'zCurlyTail'            } 'if'
@@ -1306,9 +1321,25 @@ glyph-block Autobuild-Pnonetic-Ligatures : begin
 		list 0x02AA { 'l/phoneticLeft'  's/phoneticRight'       } 'b'
 		list 0x02AB { 'l/phoneticLeft'  'z'                     } 'b'
 		list 0xAB66 { 'd/phoneticLeft'  'zRTailBR'              } 'if'
-		list 0xAB67 { 't/phoneticLeft1' 'sRTail'                } null
+		list 0xAB67 { 't/phoneticLeft1' 'sRTail'                } 'p'
 		list 0xFB01 { 'f/compLigLeft1'  'dotlessi/compLigRight' } null
 		list 0xFB02 { 'f/compLigLeft2'  'l/compLigRight'        } null
+
+	createPhoneticLigatures 'phoneticSuperscript' 1 stdShrink stdShrink 1 1 ToSuperscript : list
+		list 0x10787 { 'd/phoneticLeft'  'z'                     } 'b'
+		list 0x1078A { 'd/phoneticLeft'  'ezh'                   } 'if'
+		list 0x10789 { 'd/phoneticLeft'  'zCurlyTail'            } 'if'
+		list 0x107AC { 't/phoneticLeft2' 's/phoneticRight'       } 'b'
+		list 0x107AE { 't/teshLeft'      'esh'                   } 'if'
+		list 0x107AB { 't/phoneticLeft1' 'cCurlyTail'            } 'b'
+		list 0x10790 { 'f/phoneticLeft'  'eng/phoneticRight'     } 'if'
+		list 0x10799 { 'l/phoneticLeft'  's/phoneticRight'       } 'b'
+		list 0x1079A { 'l/phoneticLeft'  'z'                     } 'b'
+		list 0x10788 { 'd/phoneticLeft'  'zRTailBR'              } 'if'
+		list 0x107AD { 't/phoneticLeft1' 'sRTail'                } 'p'
+
+	createPhoneticLigatures 'thSlash' 1 stdShrink stdShrink 1 1 AddSlash : list
+		list 0x1D7A { 't/phoneticLeft1' 'h' } 'b'
 
 glyph-block Autobuild-Double-Emotions : begin
 	glyph-block-import CommonShapes
@@ -1363,7 +1394,7 @@ glyph-block Autobuild-Grouped-Digits : begin
 			set-width 0
 			set-mark-anchor 'compositeInner' 0 0
 			include : intersection
-				HBarBottom 0 Width (Descender * 0.75) [AdviceStroke 4]
+				HBar.b 0 Width (Descender * 0.75) [AdviceStroke 4]
 				glyph-proc
 					include : refer-glyph "denseShade.WWID"
 					include : Translate (-Width / 2) 0

@@ -52,14 +52,9 @@ export : define [calculateMetrics para] : begin
 
 	# Orient parameters
 	define Upward    : new Point Point.Type.Corner (-HVContrast)  0
-	define Downward  : new Point Point.Type.Corner HVContrast  0
-	define Rightward : new Point Point.Type.Corner TanSlope  1
-	define Leftward  : new Point Point.Type.Corner (- TanSlope) (-1)
-
-	define [UpwardT]    : new Point Point.Type.Corner (-HVContrast)  0
-	define [DownwardT]  : new Point Point.Type.Corner HVContrast  0
-	define [RightwardT] : new Point Point.Type.Corner this.gizmo.yx  1
-	define [LeftwardT]  : new Point Point.Type.Corner (- this.gizmo.yx) (-1)
+	define Downward  : new Point Point.Type.Corner   HVContrast   0
+	define Rightward : new Point Point.Type.Corner   0            1
+	define Leftward  : new Point Point.Type.Corner   0          (-1)
 
 	# Style parameters
 	define O para.overshoot
@@ -131,6 +126,9 @@ export : define [calculateMetrics para] : begin
 	define WideWidth3 : if (para.spacing >= 3) WideWidth0 Width
 	define WideWidth4 : if (para.spacing >= 4) WideWidth0 Width
 
+	define [NarrowUnicodeT wd] : function [u] : if (wd === Width) u null
+	define [WideUnicodeT   wd] : function [u] : if (wd !== Width) u null
+
 	define EssUpper : Stroke * [fallback para.essRatioUpper para.essRatio Contrast]
 	define EssLower : Stroke * [fallback para.essRatioLower para.essRatio Contrast]
 	define EssQuestion : Stroke * [fallback para.essRatioQuestion para.essRatio Contrast]
@@ -140,6 +138,7 @@ export : define [calculateMetrics para] : begin
 	define DotRadius : DotSize / 2
 	define PeriodRadius : PeriodSize / 2
 	define SideJut : Jut - HalfStroke * HVContrast
+	define VJutStroke : AdviceStroke 3.5
 
 	define [StrokeWidthBlend min max sw] : linreg para.canonicalStrokeWidthMin min para.canonicalStrokeWidthMax max [fallback sw Stroke]
 
@@ -181,45 +180,38 @@ export : define [calculateMetrics para] : begin
 		1 - [Math.pow x [fallback superness DesignParameters.superness]]
 		1 / [fallback superness DesignParameters.superness]
 
-	define [adviceSSmooth y sign _stroke] : begin
-		# Handle with extreme care.
-		local stroke : fallback _stroke Stroke
-		local strokeFactor : stroke * [clamp 1 2 : linreg 126 1 137 1.025 stroke] * [clamp 0 1 : Math.pow (Width / HalfUPM) 0.5]
-		local widthFactor : RightSB - SB
-		local ss : y * 0.21 + 0.375 * strokeFactor + 0.035 * widthFactor
-		return : ss + sign * TanSlope * (SmoothAdjust + 0.75 * stroke)
-
 	define [AdviceGlottalStopArchDepth y sign] : begin
 		return : ((y - Stroke) * 0.24 + Stroke * 0.625) + sign * TanSlope * SmoothAdjust
 
-	define [shoulderMidSlope _fine _stroke _dir] : begin
+	define [shoulderMidSkew _fine _stroke] : begin
 		local stroke : fallback _stroke Stroke
 		local fine : fallback _fine ShoulderFine
-		local dir : fallback _dir 1
-		return : 0.5 * HVContrast * (stroke - fine) / stroke + dir * TanSlope
+		return : 0.5 * Contrast * (stroke - fine) / stroke
 
 	return [object
 		DesignParameters UPM HalfUPM Width SB CAP XH Ascender Descender Contrast SymbolMid
 		ParenTop ParenBot OperTop OperBot TackTop TackBot PlusTop PlusBot PictTop PictBot BgOpTop
 		BgOpBot Italify Upright Scale Translate ApparentTranslate Rotate GlobalTransform TanSlope
-		HVContrast Upward Downward Rightward Leftward UpwardT DownwardT LeftwardT RightwardT O OX
+		HVContrast Upward Downward Rightward Leftward O OX
 		OXHook Hook AHook SHook RHook JHook FHook HookX ArchDepth SmallArchDepth Stroke DotSize
-		PeriodSize HBarPos OverlayPos LongJut Jut VJut AccentStackOffset AccentWidth
+		PeriodSize HBarPos OverlayPos LongJut Jut VJut VJutStroke AccentStackOffset AccentWidth
 		AccentClearance AccentHeight CThin CThinB SLAB TailAdjX TailAdjY IBalance IBalance2
 		JBalance JBalance2 TBalance TBalance2 RBalance RBalance2 FBalance OneBalance WideWidth0
 		WideWidth1 WideWidth2 WideWidth3 WideWidth4 EssUpper EssLower EssQuestion HalfStroke
-		RightSB Middle DotRadius PeriodRadius SideJut ArchDepthA ArchDepthB SmallArchDepthA SmallArchDepthB CorrectionOMidX CorrectionOMidS ArchXAdjust compositeBaseAnchors
+		RightSB Middle DotRadius PeriodRadius SideJut ArchDepthA ArchDepthB SmallArchDepthA
+		SmallArchDepthB CorrectionOMidX CorrectionOMidS ArchXAdjust compositeBaseAnchors
 		AdviceStroke AdviceStroke2 OverlayStroke OperatorStroke GeometryStroke ShoulderFine
-		_SuperXY adviceSSmooth AdviceGlottalStopArchDepth shoulderMidSlope StrokeWidthBlend
+		_SuperXY AdviceGlottalStopArchDepth shoulderMidSkew StrokeWidthBlend
 		ArchDepthAOf ArchDepthBOf SmoothAdjust MidJutSide MidJutCenter YSmoothMidR YSmoothMidL
-		HSwToV]
+		HSwToV NarrowUnicodeT WideUnicodeT]
 
 export : define [setFontMetrics para metrics fm] : begin
-	define [object CAP Descender XH Width] metrics
+	define [object CAP Descender XH Width SymbolMid] metrics
 
 	define leading      : Math.round para.leading
-	define asc          : Math.round : leading * CAP / (CAP - Descender)
-	define desc         : Math.round : leading * Descender / (CAP - Descender)
+	define asc          : Math.round : SymbolMid + leading / 2
+	define desc         : Math.round : SymbolMid - leading / 2
+
 	define descenderPad : Math.round : fallback para.descenderPad 0
 	define winMetricAscenderPad  : Math.round : fallback para.winMetricAscenderPad  0
 	define winMetricDescenderPad : Math.round : fallback para.winMetricDescenderPad 0
@@ -354,6 +346,7 @@ export : define [MarksetDiv p sbMul me] : begin
 		tack    : buildStandardMarkSet {.top me.TackTop  .bot me.TackBot}
 		plus    : buildStandardMarkSet {.top me.PlusTop  .bot me.PlusBot}
 		if      : buildStandardMarkSet {.top me.Ascender .bot me.Descender}
+		capDesc : buildStandardMarkSet {.top me.CAP      .bot me.Descender}
 
 export : define DesignParameters : object
 	# V shape
@@ -407,8 +400,9 @@ export : define [GenDivFrame metrics] : begin
 	class CDivFrame
 		public [new _div _hPack _sbMul] : begin
 			local div : fallback _div 1
-			local hPack : Math.max 2 [fallback _hPack 0]
-			local sbMul : fallback _sbMul : Math.min 1 : (metrics.Width * div - hPack * [metrics.AdviceStroke hPack div]) / (2 * hPack * metrics.SB)
+			local hPack : Math.max 1 [fallback _hPack 0]
+			local mvs   : if _hPack [metrics.AdviceStroke _hPack div] metrics.Stroke
+			local sbMul : fallback _sbMul : Math.min 1 : (metrics.Width * div - hPack * mvs) / (2 * hPack * metrics.SB)
 
 			set this.div            div
 			set this.width        : metrics.Width * div
@@ -416,7 +410,7 @@ export : define [GenDivFrame metrics] : begin
 			set this.sb           : metrics.SB * sbMul
 			set this.leftSB       : metrics.SB * sbMul
 			set this.rightSB      : metrics.Width * div - metrics.SB * sbMul
-			set this.mvs          : metrics.AdviceStroke hPack div
+			set this.mvs            mvs
 			set this.markSet      : MarksetDiv div sbMul metrics
 
 		public [applyToGlyph g] : begin

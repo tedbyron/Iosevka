@@ -9,7 +9,7 @@ glyph-block Letter-Latin-Upper-B : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
 	glyph-block-import Letter-Shared-Metrics : BowlXDepth
-	glyph-block-import Letter-Shared-Shapes : ShoulderMidKnotRhs
+	glyph-block-import Letter-Shared-Shapes : ShoulderMidKnotRhs LetterBarOverlay SerifFrame
 	glyph-block-import Letter-Blackboard : BBS BBD
 
 	define BArcMix           0.93
@@ -57,9 +57,11 @@ glyph-block Letter-Latin-Upper-B : begin
 			barPos -- barPos
 			topArcShift -- topArcShift
 			topArcInnerShift -- topArcInnerShift
-		include : VBarLeft SB 0 top stroke
-		if serifTop : include : tagged 'serifLT' : LeftwardTopSerif SB top SideJut
-		if serifBot : include : tagged 'serifLB' : LeftwardBottomSerif SB 0 SideJut
+		include : VBar.l SB 0 top stroke
+
+		local sf : SerifFrame top 0 SB RightSB
+		if serifTop : include sf.lt.outer
+		if serifBot : include sf.lb.outer
 
 	define [BShapeMask] : params [top [stroke : AdviceStroke2 2 3 top] [barPos BBarPos] [topArcShift 0] [topArcInnerShift 0]] : glyph-proc
 		include : BShapeArcsT spiro-outline top
@@ -72,7 +74,7 @@ glyph-block Letter-Latin-Upper-B : begin
 	define [InterruptShape bp top sw st sb] : begin
 		local bowl : top * bp + sw * (1 - bp)
 		local gap : Math.max ((RightSB - SB - 2 * sw * HVContrast) * 0.15) [AdviceStroke 10]
-		return : VBarLeft (SB + sw * HVContrast) (bowl - 1 * sw + O) (bowl + 0 * sw - O) gap
+		return : VBar.l (SB + sw * HVContrast) (bowl - 1 * sw + O) (bowl + 0 * sw - O) gap
 
 	define [StdBShape top sw st sb] : BShape top (stroke -- sw) (serifTop -- st) (serifBot -- sb)
 	define [StdBShapeInterrupted top sw st sb] : difference [StdBShape top sw st sb] [InterruptShape BBarPos top sw st sb]
@@ -94,18 +96,15 @@ glyph-block Letter-Latin-Upper-B : begin
 
 	define [BOverlayBar top bp] : begin
 		local stroke : AdviceStroke2 2 3 top
-		return : HOverlayBar
-			mix SB 0 0.7
-			mix SB RightSB 0.5
-			mix 0 (top * bp + stroke / 2) 0.5
-			Math.min ((top - Stroke * 3) / 4) OverlayStroke
+		return : LetterBarOverlay.l.in SB stroke (top * bp - 0.5 * stroke)
+			space -- { 0 (RightSB - Stroke * HVContrast) }
 
-	define [BahtBar sw] : VBar [mix SB RightSB 0.475] (CAP - Descender / 2) (Descender / 2) sw
+	define [BahtBar sw] : VBar.m [mix SB RightSB 0.475] (CAP - Descender / 2) (Descender / 2) sw
 	define [BitcoinBar sw] : begin
 		local gap : Math.max [AdviceStroke 4] ((RightSB - SB) / 6)
 		return : union
-			VBar (Middle - (gap + sw * HVContrast) / 2) (CAP - Descender / 2) (Descender / 2) sw
-			VBar (Middle + (gap + sw * HVContrast) / 2) (CAP - Descender / 2) (Descender / 2) sw
+			VBar.m (Middle - (gap + sw * HVContrast) / 2) (CAP - Descender / 2) (Descender / 2) sw
+			VBar.m (Middle + (gap + sw * HVContrast) / 2) (CAP - Descender / 2) (Descender / 2) sw
 
 	define BConfig : object
 		standardSerifless                          { StdBShape                   StdBShapeMask        false false BBarPos           }
@@ -149,6 +148,13 @@ glyph-block Letter-Latin-Upper-B : begin
 			include [refer-glyph "smcpB.\(suffix)"] AS_BASE ALSO_METRICS
 			include : BOverlayBar XH bp
 
+		create-glyph "latn/Beta.\(suffix)" : glyph-proc
+			include : MarkSet.capDesc
+			include : body CAP [AdviceStroke2 2 3 CAP] ts false
+			include : VBar.l SB Descender 0
+			if bs : begin
+				local fs : SerifFrame CAP Descender SB RightSB
+				include fs.lb.fullSide
 
 	select-variant 'B' 'B'
 	link-reduced-variant 'B/sansSerif' 'B' MathSansSerif
@@ -156,6 +162,7 @@ glyph-block Letter-Latin-Upper-B : begin
 	select-variant 'currency/bitcoin' 0x20BF (follow -- 'B')
 	select-variant 'BBar' 0x243 (follow -- 'B')
 	select-variant 'smcpBBar' 0x1D03 (follow -- 'B')
+	select-variant 'latn/Beta' 0xA7B4 (follow -- 'B')
 	alias 'grek/Beta' 0x392 'B'
 	alias-reduced-variant 'grek/Beta/sansSerif' 'grek/Beta' 'B/sansSerif' MathSansSerif
 	alias 'cyrl/Ve' 0x412 'B'
@@ -170,9 +177,9 @@ glyph-block Letter-Latin-Upper-B : begin
 			intersection
 				BShapeMask CAP (stroke -- BBS)
 				union
-					VBarRight (RightSB - BBD - OX * 2) 0 (CAP * BBarPos) BBS
-					VBarRight ([mix SB RightSB BArcMix] - BBD - OX * 2) (CAP * BBarPos) CAP BBS
-					VBarLeft (SB + BBD) 0 CAP BBS
+					VBar.r (RightSB - BBD - OX * 2) 0 (CAP * BBarPos) BBS
+					VBar.r ([mix SB RightSB BArcMix] - BBD - OX * 2) (CAP * BBarPos) CAP BBS
+					VBar.l (SB + BBD) 0 CAP BBS
 
 	derive-glyphs 'Bhookleft' 0x181 'B' : lambda [src gr] : glyph-proc
 		include [refer-glyph src] AS_BASE ALSO_METRICS
@@ -273,8 +280,11 @@ glyph-block Letter-Latin-Upper-B : begin
 			archv
 			g4   (RightSB - OX)  [YSmoothMidR 0 (yMiddle + Stroke) ada adb] [widths.rhs]
 			arcvh
-			ShoulderMidKnotRhs Middle O ShoulderFine Stroke 1 1
+			ShoulderMidKnotRhs Middle O ShoulderFine Stroke (-1) 1
 			archv
 			g4.up.end (SB + HVContrast * (Stroke - ShoulderFine)) adb [widths.rhs ShoulderFine]
 			# flat (RightSB - ymiddle / 2 - HalfStroke) 0
 			# curl (SB + HalfStroke) 0 [heading Leftward]
+
+	derive-composites 'latn/beta' 0xA7B5 'grek/beta'
+		if SLAB [SerifFrame XH Descender SB RightSB].lb.fullSide [no-shape]

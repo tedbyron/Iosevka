@@ -5,18 +5,18 @@
 
 <table>
 <tr>
-<td><code>dlig</code></td>
-<td>Discretionary ligatures</td>
-</tr>
-<tr>
-<td colspan="2"><img src="../images/ligset-dlig-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-dlig-1.dark.svg#gh-dark-mode-only"/></td>
-</tr>
-<tr>
-<td><code>CLIK</code>; <code>JSPT</code></td>
-<td>C-Like, JavaScript</td>
+<td><code>CLIK</code></td>
+<td>C-Like</td>
 </tr>
 <tr>
 <td colspan="2"><img src="../images/ligset-CLIK-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-CLIK-1.dark.svg#gh-dark-mode-only"/></td>
+</tr>
+<tr>
+<td><code>JSPT</code></td>
+<td>JavaScript</td>
+</tr>
+<tr>
+<td colspan="2"><img src="../images/ligset-JSPT-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-JSPT-1.dark.svg#gh-dark-mode-only"/></td>
 </tr>
 <tr>
 <td><code>PHPX</code></td>
@@ -26,11 +26,32 @@
 <td colspan="2"><img src="../images/ligset-PHPX-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-PHPX-1.dark.svg#gh-dark-mode-only"/></td>
 </tr>
 <tr>
-<td><code>MLXX</code>; <code>FSHP</code></td>
-<td>ML, F#</td>
+<td><code>JLIA</code></td>
+<td>Julia</td>
+</tr>
+<tr>
+<td colspan="2"><img src="../images/ligset-JLIA-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-JLIA-1.dark.svg#gh-dark-mode-only"/></td>
+</tr>
+<tr>
+<td><code>RAKU</code></td>
+<td>Raku</td>
+</tr>
+<tr>
+<td colspan="2"><img src="../images/ligset-RAKU-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-RAKU-1.dark.svg#gh-dark-mode-only"/></td>
+</tr>
+<tr>
+<td><code>MLXX</code></td>
+<td>ML</td>
 </tr>
 <tr>
 <td colspan="2"><img src="../images/ligset-MLXX-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-MLXX-1.dark.svg#gh-dark-mode-only"/></td>
+</tr>
+<tr>
+<td><code>FSHP</code></td>
+<td>F#</td>
+</tr>
+<tr>
+<td colspan="2"><img src="../images/ligset-FSHP-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-FSHP-1.dark.svg#gh-dark-mode-only"/></td>
 </tr>
 <tr>
 <td><code>FSTA</code></td>
@@ -40,11 +61,18 @@
 <td colspan="2"><img src="../images/ligset-FSTA-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-FSTA-1.dark.svg#gh-dark-mode-only"/></td>
 </tr>
 <tr>
-<td><code>HSKL</code>; <code>IDRS</code>; <code>ELMX</code>; <code>PURS</code></td>
-<td>Haskell, Idris, Elm, PureScript</td>
+<td><code>HSKL</code></td>
+<td>Haskell</td>
 </tr>
 <tr>
 <td colspan="2"><img src="../images/ligset-HSKL-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-HSKL-1.dark.svg#gh-dark-mode-only"/></td>
+</tr>
+<tr>
+<td><code>IDRS</code>; <code>ELMX</code>; <code>PURS</code></td>
+<td>Idris, Elm, PureScript</td>
+</tr>
+<tr>
+<td colspan="2"><img src="../images/ligset-IDRS-1.light.svg#gh-light-mode-only"/><img src="../images/ligset-IDRS-1.dark.svg#gh-dark-mode-only"/></td>
 </tr>
 <tr>
 <td><code>SWFT</code></td>

@@ -1,7 +1,6 @@
 $$include '../../meta/macros.ptl'
 
 import [Arcs Quadify ShapeConv] from "typo-geom"
-import [OffsetCurve BezToContoursSink GEOMETRY_PRECISION] from"../../support/geometry/curve-util.mjs"
 import [mix linreg clamp fallback] from"../../support/utils.mjs"
 import [DesignParameters] from"../../meta/aesthetics.mjs"
 import [TieMark TieGlyph] from"../../support/gr.mjs"
@@ -13,7 +12,7 @@ glyph-block Mark-Horn-And-Angle : begin
 	glyph-block-import CommonShapes
 	glyph-block-import Common-Derivatives
 
-	glyph-block-import Mark-Shared-Metrics : markExtend markHalfStroke markStress markFine
+	glyph-block-import Mark-Shared-Metrics : markExtend markStroke markStress markFine
 	glyph-block-import Mark-Shared-Metrics : markMiddle markDotsRadius
 	glyph-block-import Mark-Above : aboveMarkTop aboveMarkBot aboveMarkMid aboveMarkStack
 	glyph-block-import Mark-Above : commaAboveRadius
@@ -94,8 +93,8 @@ glyph-block Mark-Horn-And-Angle : begin
 
 	create-glyph 'leftangleTR' 0x31A : glyph-proc
 		set-width 0
-		include : VBarLeft 0 aboveMarkBot aboveMarkTop (markFine * 2)
-		include : HBarTop (-markExtend * 1.5) 0 aboveMarkTop (markFine * 2)
+		include : VBar.l 0 aboveMarkBot aboveMarkTop (markFine * 2)
+		include : HBar.t (-markExtend * 1.5) 0 aboveMarkTop (markFine * 2)
 		set-mark-anchor 'topright' 0 XH 0 aboveMarkTop
 
 	foreach { suffix { DrawAt kdr } } [Object.entries DotVariants] : do
@@ -123,17 +122,6 @@ glyph-block Mark-Horn-And-Angle : begin
 			curl 0 0 [heading Downward]
 			straight.right.end (HookX - HalfStroke * HVContrast) (-Hook + HalfStroke)
 
-	create-glyph 'rRetroflexTailBR' : glyph-proc
-		set-width 0
-
-		set-mark-anchor 'bottomright' 0 0 0 belowMarkBot
-		include : HBarBottom (-Stroke * HVContrast) (SideJut - HalfStroke * HVContrast) 0
-		include : dispiro
-			widths.rhs
-			flat (SideJut) Stroke [heading Downward]
-			curl (SideJut) 0 [heading Downward]
-			straight.right.end (HookX - HalfStroke * HVContrast) (-Hook + HalfStroke)
-
 	create-glyph 'ltailBR' 0x321 : glyph-proc
 		set-width 0
 
@@ -150,9 +138,32 @@ glyph-block Mark-Horn-And-Angle : begin
 		include : refer-glyph "leftHalfCircleBelow"
 		include : FlipAround markMiddle (XH / 2)
 
-	create-glyph 'ogonekTR' : glyph-proc
-		set-width 0
-		include : refer-glyph "ogonekBelow"
-		local ogonekBot : [mix belowMarkTop belowMarkBot 0.75] + markStress
-		local ogonekRight : markMiddle + markExtend * 0.85
-		set-mark-anchor 'trailing' markMiddle 0 ogonekRight ogonekBot
+	define ogonekTrConfig : object
+		'ogonekTR'   { (7/16) (1/8) 1 }
+		'ogonekTR_Y' { (3/16) 1     6 }
+
+	foreach { glyphName { pExtL pExtR cwMidStrokeWidth } } [Object.entries ogonekTrConfig] : do
+		create-glyph glyphName : glyph-proc
+			set-width 0
+
+			local fine : AdviceStroke 8
+			local depth : 0 - Descender - markStroke
+			local extL : pExtL * depth + 0.125 * markStress
+			local extR : Math.max (pExtR * markExtend) (1.5 * TanSlope * markStroke)
+
+			local turnSlope : 0.5 * ((markStroke - fine) / markStroke - (ArchDepthB - ArchDepth) / ArchDepth)
+			local swMid : Math.min markStroke [AdviceStroke cwMidStrokeWidth]
+
+			include : difference
+				dispiro
+					g4 markMiddle 0 [widths.rhs.heading fine Leftward]
+					alsoThru 0.5 (0.375 - 0.2 * markStroke / depth) [widths.rhs : mix fine swMid 0.25]
+					g4.down.mid (markMiddle - extL) (-0.75 * depth) [widths.rhs.heading swMid {.x HVContrast .y turnSlope}]
+					arcvh
+					g4 (markMiddle + [mix (-extL) extR (11/16)]) (-depth + O) [widths.rhs.heading markStroke Rightward]
+					g4 (markMiddle + extR) (-depth + 0.5 * O) [heading Rightward]
+				intersection
+					MaskAbove 0
+					MaskRight markMiddle
+
+			set-mark-anchor 'trailing' markMiddle 0 (markMiddle + extR) (-depth - 0.5 * O - markStroke)
