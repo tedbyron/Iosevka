@@ -558,6 +558,7 @@ glyph-block Autobuild-Transformed : begin
 		list 0x36E 'v'
 		list 0x36F 'x'
 		list 0x1DD4 'ae'
+		list 0x1DD5 'ao'
 		list 0x1DD8 'cyrl/de.italic'
 		list 0x1DDB 'smcpG'
 		list 0x1DDE 'smcpL'
@@ -622,6 +623,7 @@ glyph-block Autobuild-Transformed : begin
 		list 0x1E08F 'cyrl/Ukrainiani'
 
 	createMedievalCombs Descender XH : list
+		list 0x1ACC 'gInsular'
 		list 0x1DDA 'g'
 		list 0x1DD7 'cCedilla'
 		list 0x1DE9 'latn/beta'
