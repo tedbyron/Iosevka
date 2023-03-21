@@ -59,3 +59,10 @@ params/private-parameters.toml
 tmp
 
 glyphs
+font-awesome
+powerline-symbols
+original-source.otf
+Pomicons.otf
+PowerlineExtraSymbols.otf
+Unicode_IEC_symbol_font.otf
+__pycache__
