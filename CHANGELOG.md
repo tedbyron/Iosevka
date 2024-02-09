@@ -1,5 +1,40 @@
 ## Modifications since last major version
 
+### 28.1.0
+
+* Add characters:
+  - LEFT VERTICAL BOX LINE (`U+23B8`) ... HORIZONTAL SCAN LINE-9 (`U+23BD`).
+  - SQUARE FOUR CORNERS (`U+26F6`).
+  - TWO JOINED SQUARES (`U+29C9`).
+  - OVERLAPPING WHITE SQUARES (`U+2BBA`).
+  - OVERLAPPING WHITE AND BLACK SQUARES (`U+2BBB`).
+  - OVERLAPPING BLACK SQUARES (`U+2BBC`).
+  - OUTLINED LATIN CAPITAL LETTER A (`U+1CCD6`) ... OUTLINED LATIN CAPITAL LETTER Z (`U+1CCEF`) (Purposed for Unicode 16; L2/21-235).
+  - OUTLINED DIGIT ZERO (`U+1CCF0`) ... OUTLINED DIGIT NINE (`U+1CCF9`) (Purposed for Unicode 16; L2/21-235).
+  - BLOCK OCTANT-3 (`U+1CD00`) ... BLOCK OCTANT-2345678 (`U+1CDE5`) (Purposed for Unicode 16; L2/21-235).
+  - LEFT HALF TRIPLE DASH HORIZONTAL (`U+1CE0D`) ... LARGE TYPE PIECE STEM-12 (`U+1CE50`) (Purposed for Unicode 16; L2/21-235).
+* Fix metrics of Cyrillic Yery (#2182).
+* Fix Italic/Upright localization forms for Serbian/Macedonian Cyrillic.
+* Add Bosnian Cyrillic localization forms based on Serbian/Macedonian.
+* Add italic form for Combining Cyrillic Letter Es-Te (U+2DF5) (#2187).
+* `zero` feature will apply to composites (#2191).
+
+
+### 28.0.7
+
+* Make superscript/subscript/overscript Cyrillic characters obey localization forms of base letters (#2177).
+* Add IPA localization forms for Greek Lower Beta (`β`) and Chi (`χ`).
+* Add APLF variants for `U+25F0`, `U+25F3`, and `U+25F4`.
+* Make Ezh follow variants of `Z`/`z` (#1957).
+* Fix serif form for Cyrillic Lower Tall / Iotified Yat (#2178).
+* Make top serifs of Cyrillic Lower Straight U (`ү`, `ұ`) and Latin Lower Gamma (`ɣ`) respond to italics.
+* Fix leaning marks of Capital Turned/Half H (`U+2C75`, `U+2C76`, `U+A78D`, `U+A7F5`, `U+A7F6`).
+* Fix leaning marks of Wynn (`U+01BF`, `U+01F7`).
+* Fix leaning marks of Insular R (`U+A782`, `U+A783`).
+* Fix leaning marks of Greek/Latin Beta (`U+03B2`, `U+A7B4`, `U+A7B5`).
+* Fix leaning marks of Greek Lower San (`U+03FB`).
+
+
 ### 28.0.6
 
 * Fix application of `APLF` for several [Uiua](https://www.uiua.org/) operators.
