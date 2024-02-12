@@ -40,7 +40,7 @@ cyrl-yery = "corner"
 [buildPlans.curlio.ligations]
 inherits = "javascript"
 disables = []
-enables = []
+enables = ["arrow-l"]
 
 [buildPlans.curlio.widths.normal]
 shape = 600
@@ -73,7 +73,7 @@ cent = "open"
 [buildPlans.blocky.ligations]
 inherits = "javascript"
 disables = []
-enables = []
+enables = ["arrow-l"]
 
 [buildPlans.blocky.widths.normal]
 shape = 600
