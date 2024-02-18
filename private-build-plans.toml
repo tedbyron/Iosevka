@@ -2,7 +2,8 @@
 family = "Curlio"
 spacing = "term"
 serifs = "sans"
-no-cv-ss = true
+noCvSs = true
+exportGlyphNames = false
 
 webfont-formats = ['ttf', 'woff2']
 
@@ -11,71 +12,59 @@ inherits = "ss20"
 
 [buildPlans.curlio.variants.design]
 capital-g = "toothless-rounded-serifless-hooked"
+capital-j = "flat-hook-serifed"
+a = "double-storey-serifless"
+d = "toothed-serifless"
+e = "flat-crossbar"
+f = "flat-hook-serifless"
+g = "single-storey-flat-hook-serifless"
+i = "serifed-flat-tailed"
+j = "flat-hook-serifless"
+k = "curly-serifless"
+l = "serifed-flat-tailed"
+t = "flat-hook"
+u = "toothed-serifless"
+y = "curly-serifless"
+
+long-s = "bent-hook-serifless"
+eszet = "sulzbacher-serifless"
+
+lower-iota = "serifed-flat-tailed"
+lower-xi = "rounded"
+lower-tau = "flat-tailed"
+
+cyrl-ef = "serifless"
+cyrl-u = "curly-serifless"
+cyrl-yeri = "corner"
+cyrl-yery = "corner"
+
+zero = "long-dotted"
+four = "closed"
+five = "upright-flat"
+seven = "curly-serifless"
+
 asterisk = "penta-low"
 brace = "straight"
+guillemet = "straight"
 at = "fourfold-solid-inner"
 dollar = "open"
 cent = "open"
 percent = "rings-continuous-slash"
-zero = "long-dotted"
-four = "closed"
-seven = "bend-serifless"
-eight = "two-circles"
-
-[buildPlans.curlio.variants.italic]
-a = "double-storey-serifless"
-e = "flat-crossbar"
-f = "serifless"
-i = "serifed"
-k = "curly-serifless"
-l = "serifed"
-u = "toothed"
-y = "curly"
-long-s = "bent-hook"
-eszet = "sulzbacher"
-cyrl-ef = "serifless"
-cyrl-yeri = "corner"
-cyrl-yery = "corner"
+lig-neq = "vertical"
+lig-equal-chain = "without-notch"
+lig-hyphen-chain = "without-notch"
 
 [buildPlans.curlio.ligations]
 inherits = "javascript"
 disables = []
 enables = ["arrow-l"]
 
+[buildPlans.curlio.widths.Condensed]
+shape = 500
+menu = 3
+css = "condensed"
+
 [buildPlans.curlio.widths.normal]
-shape = 600
-menu = 5
-css = "normal"
-
-###################################################################################################
-
-[buildPlans.blocky]
-family = "Blocky"
-spacing = "term"
-serifs = "sans"
-no-cv-ss = true
-
-webfont-formats = ['ttf']
-
-[buildPlans.blocky.variants]
-inherits = "ss02"
-
-[buildPlans.blocky.variants.design]
-zero = "long-dotted"
-seven = "straight-serifed"
-dollar = "open"
-cent = "open"
-
-[buildPlans.blocky.variants.upright]
-
-[buildPlans.blocky.variants.italic]
-
-[buildPlans.blocky.ligations]
-inherits = "javascript"
-disables = []
-enables = ["arrow-l"]
-
-[buildPlans.blocky.widths.normal]
 shape = 600
 menu = 5
 css = "normal"
