@@ -1,3 +1,13 @@
+# make sure font patcher doesn't rename
+# TTF + WOFF2, hinted + unhinted:
+# npm run build -- contents::curlio
+# TTF:
+# npm run build -- ttf::curlio
+# CSS + WOFF2:
+# npm run build -- webfont::curlio
+# WOFF2:
+# npm run build -- woff2::curlio
+
 [buildPlans.curlio]
 family = "Curlio"
 spacing = "term"
@@ -56,7 +66,7 @@ lig-hyphen-chain = "without-notch"
 
 [buildPlans.curlio.ligations]
 inherits = "javascript"
-disables = []
+disables = ["ltgt-slash-tag"]
 enables = ["arrow-l"]
 
 [buildPlans.curlio.widths.Condensed]
