@@ -65,8 +65,7 @@ lig-hyphen-chain = "without-notch"
 
 [buildPlans.curlio.ligations]
 inherits = "javascript"
-disables = ["ltgt-slash-tag"]
-enables = ["arrow-l"]
+enables = ["arrow-l", "hash-hash"]
 
 [buildPlans.curlio.widths.Condensed]
 shape = 500
